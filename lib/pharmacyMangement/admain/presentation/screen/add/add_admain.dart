@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pharmacy_system/pharmacyMangement/admain/presentation/screen/auth/home.dart';
 import 'package:pharmacy_system/utils/core/constance/color_constance.dart';
-import 'package:pharmacy_system/utils/widget/basic_controller.dart';
+import 'package:pharmacy_system/utils/widget/basic_bottom.dart';
 import 'package:pharmacy_system/utils/widget/text_form_field.dart';
 
 class Admin_Register extends StatefulWidget {
@@ -64,7 +63,7 @@ class _Admin_RegisterState extends State<Admin_Register> {
                       return Row(
                         children: [
                           Expanded(
-                            child: DefaultContainer(
+                            child: BasicBottom(
                               height: 40.0,
                               colorContainer: AllColors.greenColor,
                               borderRadius: 8.0,
@@ -91,7 +90,7 @@ class _Admin_RegisterState extends State<Admin_Register> {
                             width: 10.0,
                           ),
                           Expanded(
-                            child: DefaultContainer(
+                            child: BasicBottom(
                               height: 40.0,
                               colorContainer: AllColors.redColor,
                               borderRadius: 8.0,
@@ -133,14 +132,14 @@ class _Admin_RegisterState extends State<Admin_Register> {
                         _index = index;
                       });
                     },
-
                     type: StepperType.vertical,
                     steps: listStep(),
                   ),
                 ),
-                DefaultContainer(
+                if(_index == 2)
+                BasicBottom(
                   text: "Add Admin",
-                  color: Colors.white,
+                  colorText: Colors.white,
                   //height: 100.0,
                   onPressed: () {
                     // if (formKey.currentState!.validate()) {
@@ -162,9 +161,7 @@ class _Admin_RegisterState extends State<Admin_Register> {
 
 class Step1Widget extends StatelessWidget {
   final TextEditingController emailController;
-
   final TextEditingController nameController;
-
   final TextEditingController passwordController;
   final  Key formKey ;
   const Step1Widget({
@@ -195,6 +192,7 @@ class Step1Widget extends StatelessWidget {
               ),
               DefaultFormField(
                 controller: nameController,
+
                 type: TextInputType.text,
                 validate: (String? value) {
                   if (value!.isEmpty) {

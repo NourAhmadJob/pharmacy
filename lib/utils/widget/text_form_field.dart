@@ -22,7 +22,7 @@ class DefaultFormField extends StatelessWidget {
     this.obscure = false,
     this.hint,
     this.label,
-    this.borderRadius,
+    this.borderRadius = 16,
     this.textInputColor,
     this.maxLine = 1,
     this.prefixIcon,
@@ -32,37 +32,44 @@ class DefaultFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      keyboardType: type,
-      obscureText: obscure,
-      maxLines: maxLine,
-      validator: validate,
-      style: TextStyle(
-        color: textInputColor,
+    return Container(
+      height: 55.0,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(borderRadius!),
       ),
-      decoration: InputDecoration(
-        hintText: hint,
-        prefixIcon: Icon(prefixIcon),
-        suffixIcon: Icon(suffixIcon),
-        labelText: label,
-        hintStyle: const TextStyle(
-          color: Colors.black,
-          fontSize: 16.0,
-          fontWeight: FontWeight.w300,
+      child: TextFormField(
+        controller: controller,
+        keyboardType: type,
+        obscureText: obscure,
+        maxLines: maxLine,
+        validator: validate,
+        style: TextStyle(
+          color: textInputColor,
         ),
-        // enabledBorder: const OutlineInputBorder(
-        //   borderSide: BorderSide(
-        //     //color: enableBorderColor!,
-        //     width: 1.0,
-        //   ),
-        // ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16.0),
-          borderSide: const BorderSide(
+        decoration: InputDecoration(
+          hintText: hint,
+          prefixIcon: Icon(prefixIcon),
+          suffixIcon: Icon(suffixIcon),
+          labelText: label,
+          hintStyle: const TextStyle(
             color: Colors.black,
-            width: 1.0 ,
-          ) ,
+            fontSize: 16.0,
+            fontWeight: FontWeight.w300,
+          ),
+          // enabledBorder: const OutlineInputBorder(
+          //   borderSide: BorderSide(
+          //     //color: enableBorderColor!,
+          //     width: 1.0,
+          //   ),
+          // ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16.0),
+            borderSide: const BorderSide(
+              color: Colors.black,
+              width: 1.0 ,
+
+            ) ,
+          ),
         ),
       ),
     );

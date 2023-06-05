@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'pharmacyMangement/admain/presentation/screen/auth/add_admain.dart';
+import 'pharmacyMangement/admain/presentation/screen/add/add_admain.dart';
+import 'pharmacyMangement/admain/presentation/screen/add/add_empolyee.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,10 +16,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-
         primarySwatch: Colors.blue,
       ),
-      home:  Admin_Register(),
+      home:  AddEmployee(),
     );
   }
 }
