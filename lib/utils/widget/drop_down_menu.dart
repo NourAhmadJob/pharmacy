@@ -34,7 +34,6 @@ class _DropDownAppState extends State<DropDownApp> {
   dynamic valueChoose;
   final List listDrop;
   final String hintText;
-
   double sizeHint;
 
   _DropDownAppState({

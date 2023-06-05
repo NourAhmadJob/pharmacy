@@ -3,12 +3,14 @@ import 'package:pharmacy_system/utils/core/constance/color_constance.dart';
 import 'package:pharmacy_system/utils/widget/basic_bottom.dart';
 import 'package:pharmacy_system/utils/widget/text_form_field.dart';
 
-class Admin_Register extends StatefulWidget {
+class AdminRegister extends StatefulWidget {
+  const AdminRegister({super.key});
+
   @override
-  State<Admin_Register> createState() => _Admin_RegisterState();
+  State<AdminRegister> createState() => _AdminRegisterState();
 }
 
-class _Admin_RegisterState extends State<Admin_Register> {
+class _AdminRegisterState extends State<AdminRegister> {
   int _index = 0;
   var formKey1 = GlobalKey<FormState>();
   var formKey2 = GlobalKey<FormState>();
@@ -40,8 +42,8 @@ class _Admin_RegisterState extends State<Admin_Register> {
           ),
           isActive: _index > 1 ? true : false,
         ),
-        Step(
-            title: const Text("Register"),
+        const Step(
+            title:  Text("Register"),
             content: FinishRegisterScreen(),
             state: StepState.complete),
       ];
@@ -331,6 +333,8 @@ class AdressScreen extends StatelessWidget {
 }
 
 class FinishRegisterScreen extends StatelessWidget {
+  const FinishRegisterScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

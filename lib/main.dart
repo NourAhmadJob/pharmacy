@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'pharmacyMangement/admain/presentation/screen/add/add_admain.dart';
-import 'pharmacyMangement/admain/presentation/screen/add/add_empolyee.dart';
+import 'pharmacyManagement/admin/presentation/screen/add/add_employee.dart';
+
+
+
 
 void main() {
   runApp(const MyApp());
@@ -14,11 +16,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Pharmacy System Management',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home:  AddEmployee(),
+      home:  const AddEmployee(),
     );
   }
 }
