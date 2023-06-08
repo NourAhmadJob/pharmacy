@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'pharmacyManagement/admin/presentation/screen/add/add_employee.dart';
+import 'pharmacyManagement/admin/presentation/screen/verify/verify_screen.dart';
 
 
 
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home:  const AddEmployee(),
+      home:   VerifyScreen(),
     );
   }
 }

@@ -44,7 +44,7 @@ class BasicBottom extends StatelessWidget {
         // api Add Employee
       },
       child: TextNormal(
-        text: "Add Employee",
+        text: text,
         colorText: colorText,
         sizeText: 20.0,
         fontWeight: FontWeight.w600,
