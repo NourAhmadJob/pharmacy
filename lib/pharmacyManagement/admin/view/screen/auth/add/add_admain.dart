@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pharmacy_system/pharmacyManagement/admin/view_model/all_cubit/auth/add_admain/cubit.dart';
+import 'package:pharmacy_system/pharmacyManagement/admin/view_model/all_cubit/auth/add_admain/state.dart';
 import 'package:pharmacy_system/utils/core/constance/color_constance.dart';
-import 'package:pharmacy_system/utils/widget/basic_bottom.dart';
-import 'package:pharmacy_system/utils/widget/text_form_field.dart';
+import 'package:pharmacy_system/utils/widget/all_app/basic_bottom.dart';
+import 'package:pharmacy_system/utils/widget/all_app/text_form_field.dart';
 
 class AdminRegister extends StatefulWidget {
   const AdminRegister({super.key});
@@ -17,15 +20,18 @@ class _AdminRegisterState extends State<AdminRegister> {
   TextEditingController emailController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController c_passwordController = TextEditingController();
   TextEditingController namePharmacyController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController addressController = TextEditingController();
 
-  List<Step> listStep() => [
+  List<Step> listStep() =>
+      [
         Step(
           title: const Text("Account"),
           content: Step1Widget(
             formKey: formKey1,
+            c_passwordController: c_passwordController,
             emailController: emailController,
             nameController: nameController,
             passwordController: passwordController,
@@ -43,7 +49,7 @@ class _AdminRegisterState extends State<AdminRegister> {
           isActive: _index > 1 ? true : false,
         ),
         const Step(
-            title:  Text("Register"),
+            title: Text("Register"),
             content: FinishRegisterScreen(),
             state: StepState.complete),
       ];
@@ -71,20 +77,18 @@ class _AdminRegisterState extends State<AdminRegister> {
                               borderRadius: 8.0,
                               text: "Continue",
                               onPressed: () {
-                               setState(() {
-                                 if(_index == 0){
-                                   if(formKey1.currentState!.validate())
-                                   {
+                                setState(() {
+                                  if (_index == 0) {
+                                    if (formKey1.currentState!.validate()) {
                                       _index += 1;
-                                   }
-                                 }
-                                 if(_index == 1){
-                                   if(formKey2.currentState!.validate())
-                                   {
-                                     _index += 1;
-                                   }
-                                 }
-                               });
+                                    }
+                                  }
+                                  if (_index == 1) {
+                                    if (formKey2.currentState!.validate()) {
+                                      _index += 1;
+                                    }
+                                  }
+                                });
                               },
                             ),
                           ),
@@ -96,20 +100,21 @@ class _AdminRegisterState extends State<AdminRegister> {
                               height: 40.0,
                               colorContainer: AllColors.redColor,
                               borderRadius: 8.0,
-                              text: _index <listStep().length -1 ? "Back" : "Cancel",
+                              text: _index < listStep().length - 1
+                                  ? "Back"
+                                  : "Cancel",
                               onPressed: () {
-                               setState(() {
-                                 if(_index == 2 ){
-                                   _index = 0 ;
-                                 }
-                                 if(_index == 0){
-                                   return ;
-                                 }
-                                 if(_index <listStep().length -1){
-                                   _index -=1 ;
-                                 }
-
-                               });
+                                setState(() {
+                                  if (_index == 2) {
+                                    _index = 0;
+                                  }
+                                  if (_index == 0) {
+                                    return;
+                                  }
+                                  if (_index < listStep().length - 1) {
+                                    _index -= 1;
+                                  }
+                                });
                               },
                             ),
                           ),
@@ -139,16 +144,32 @@ class _AdminRegisterState extends State<AdminRegister> {
                   ),
                 ),
                 if(_index == 2)
-                BasicBottom(
-                  text: "Add Admin",
-                  colorText: Colors.white,
-                  //height: 100.0,
-                  onPressed: () {
-                    // if (formKey.currentState!.validate()) {
-                    //   // GetApi Register
-                    // }
-                  },
-                ),
+
+                  BlocProvider<AddAdminCubit>(
+                    create: (context) => AddAdminCubit(),
+                    child: BlocConsumer<AddAdminCubit, AdminStates>(
+                      listener: (context, state) {},
+                      builder: (context, state) =>
+                          BasicBottom(
+                            text: "Add Admin",
+                            colorText: Colors.white,
+                            //height: 100.0,
+                            onPressed: () {
+
+                              AddAdminCubit.get(context).RegisterAdmin(
+                                name: nameController.text,
+                                email: emailController.text,
+                                password: passwordController.text,
+                                confirmPassword: c_passwordController.text,
+                                gender: "male",
+                                address: addressController.text,
+                                phone_number: phoneController.text,
+                                context: context
+                              );
+                            },
+                          ),
+                    ),
+                  ),
                 const SizedBox(
                   height: 20.0,
                 ),
@@ -165,12 +186,15 @@ class Step1Widget extends StatelessWidget {
   final TextEditingController emailController;
   final TextEditingController nameController;
   final TextEditingController passwordController;
-  final  Key formKey ;
+  final TextEditingController c_passwordController;
+  final Key formKey;
+
   const Step1Widget({
     super.key,
     required this.emailController,
     required this.nameController,
     required this.passwordController,
+    required this.c_passwordController,
     required this.formKey,
   });
 
@@ -239,6 +263,24 @@ class Step1Widget extends StatelessWidget {
                 },
               ),
               const SizedBox(height: 30.0,),
+              const Text("Confirm Password"),
+              const SizedBox(
+                height: 15.0,
+              ),
+              DefaultFormField(
+                controller: c_passwordController,
+                obscure: true,
+                type: TextInputType.visiblePassword,
+                validate: (String? value) {
+                  if (value!.isEmpty) {
+                    return " Confirm Your Password";
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(
+                height: 15.0,
+              ),
             ],
           ),
         ),
@@ -250,9 +292,9 @@ class Step1Widget extends StatelessWidget {
 class AdressScreen extends StatelessWidget {
   final TextEditingController namePharmacyController;
   final TextEditingController phoneController;
-
   final TextEditingController addressController;
-  final Key formKey ;
+  final Key formKey;
+
   const AdressScreen({
     super.key,
     required this.namePharmacyController,

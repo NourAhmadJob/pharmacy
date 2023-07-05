@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_system/utils/core/constance/color_constance.dart';
-import 'package:pharmacy_system/utils/widget/basic_bottom.dart';
-import 'package:pharmacy_system/utils/widget/drop_down_menu.dart';
-import 'package:pharmacy_system/utils/widget/text_form_field.dart';
-import 'package:pharmacy_system/utils/widget/text_normal.dart';
-
+import 'package:pharmacy_system/utils/widget/all_app/basic_bottom.dart';
+import 'package:pharmacy_system/utils/widget/all_app/drop_down_menu.dart';
+import 'package:pharmacy_system/utils/widget/all_app/text_form_field.dart';
+import 'package:pharmacy_system/utils/widget/all_app/text_normal.dart';
 class AddEmployee extends StatefulWidget {
   const AddEmployee({super.key});
 
@@ -12,7 +11,7 @@ class AddEmployee extends StatefulWidget {
   State<AddEmployee> createState() => _AddEmployeeState();
 }
 
-enum Gender { male, female }
+enum Gender {male, female}
 
 class _AddEmployeeState extends State<AddEmployee> {
   TextEditingController nameController = TextEditingController();
@@ -34,7 +33,7 @@ class _AddEmployeeState extends State<AddEmployee> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: AllColors.appColor,
-          title: TextNormal(
+          title: NormalText(
             text: "add employee for pharmacy",
             colorText: Colors.white,
             sizeText: 18.0,
@@ -137,7 +136,7 @@ class _AddEmployeeState extends State<AddEmployee> {
                 const SizedBox(
                   height: 25.0,
                 ),
-                TextNormal(
+                NormalText(
                   text: "Please choose your gender",
                   sizeText: 18.0,
                 ),
@@ -157,7 +156,7 @@ class _AddEmployeeState extends State<AddEmployee> {
                             const SizedBox(
                               width: 10.0,
                             ),
-                            TextNormal(text: "Male"),
+                            NormalText(text: "Male",),
                             Radio(
                               value: Gender.male,
                               groupValue: gender,
@@ -177,7 +176,7 @@ class _AddEmployeeState extends State<AddEmployee> {
                             const SizedBox(
                               width: 10.0,
                             ),
-                            TextNormal(text: "Female"),
+                            NormalText(text: "Female"),
                             Radio(
                               value: Gender.female,
                               groupValue: gender,
@@ -196,7 +195,7 @@ class _AddEmployeeState extends State<AddEmployee> {
                 const SizedBox(
                   height: 25.0,
                 ),
-                TextNormal(
+                NormalText(
                   text: "Please choose role of employee new",
                   sizeText: 18.0,
                   fontWeight: FontWeight.w500,
@@ -208,7 +207,6 @@ class _AddEmployeeState extends State<AddEmployee> {
                   listDrop: const ["Laboratory", "Pharmacist"],
                   hintText: "Choose role employee",
                   valueChoose: valueChoose,
-
                 ),
                 const SizedBox(height: 40.0,),
                 BasicBottom(

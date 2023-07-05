@@ -1,27 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pharmacy_system/pharmacyManagement/admin/view/screen/employee/all_employee.dart';
+import 'package:pharmacy_system/pharmacyManagement/admin/view_model/all_cubit/auth/add_admain/cubit.dart';
+import 'package:pharmacy_system/pharmacyManagement/admin/view_model/all_cubit/auth/login/cubit.dart';
+import 'package:pharmacy_system/utils/core/save/shared_pref.dart';
 
-import 'pharmacyManagement/admin/presentation/screen/add/add_employee.dart';
-import 'pharmacyManagement/admin/presentation/screen/verify/verify_screen.dart';
+import 'pharmacyManagement/admin/view_model/all_cubit/company/cubit.dart';
 
-
-
-
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
+  await SharedPref.init();
 }
 
 class MyApp extends StatelessWidget {
-
   const MyApp({super.key});
-  // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Pharmacy System Management',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => LoginCubit(),),
+        BlocProvider(create: (context) => AddAdminCubit(), ),
+        BlocProvider(create: (context) => CompanyCubit(),),
+      ],
+      child: MaterialApp(
+        title: 'Pharmacy System Management',
+        theme: ThemeData(),
+        home:  const AllEmployee(),
       ),
-      home:   VerifyScreen(),
     );
   }
 }

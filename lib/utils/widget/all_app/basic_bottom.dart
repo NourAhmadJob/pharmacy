@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_system/utils/core/constance/color_constance.dart';
+import 'package:pharmacy_system/utils/widget/all_app/text_normal.dart';
 
-import 'text_normal.dart';
 
+// ignore: must_be_immutable
 class BasicBottom extends StatelessWidget {
   final String text;
   final Function onPressed;
@@ -12,8 +13,9 @@ class BasicBottom extends StatelessWidget {
   double height;
   double width;
   double borderRadius;
+
   FontWeight fontWeight;
-  Color borderSide ;
+  Color borderSide;
 
   BasicBottom({
     super.key,
@@ -21,33 +23,35 @@ class BasicBottom extends StatelessWidget {
     required this.onPressed,
     this.colorText = Colors.black,
     this.fontWeight = FontWeight.w400,
-    this.colorContainer = AllColors.appColor ,
+    this.colorContainer = AllColors.appColor,
     this.sizeText = 18.0,
     this.height = 45.0,
     this.width = double.infinity,
     this.borderRadius = 16.0,
+
     this.borderSide = Colors.transparent,
   });
 
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
+
       minWidth: width,
       height: height,
       clipBehavior: Clip.antiAlias,
       shape: OutlineInputBorder(
-        borderSide:  BorderSide(color:borderSide),
+        borderSide: BorderSide(color: borderSide),
         borderRadius: BorderRadius.circular(borderRadius),
       ),
       color: colorContainer,
-      onPressed: () {
-        // api Add Employee
+      onPressed: (){
+        onPressed();
       },
-      child: TextNormal(
+      child: NormalText(
         text: text,
         colorText: colorText,
-        sizeText: 20.0,
-        fontWeight: FontWeight.w600,
+        sizeText: sizeText,
+        fontWeight: fontWeight,
       ),
     );
   }

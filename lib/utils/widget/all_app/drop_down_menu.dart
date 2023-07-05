@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_system/utils/core/constance/color_constance.dart';
-import 'package:pharmacy_system/utils/widget/text_normal.dart';
 
+import 'text_normal.dart';
+
+// ignore: must_be_immutable
 class DropDownApp extends StatefulWidget {
   final List listDrop;
 
+  // ignore: prefer_typing_uninitialized_variables
   final valueChoose;
   final String hintText;
   double sizeHint;
@@ -21,7 +24,8 @@ class DropDownApp extends StatefulWidget {
   });
 
   @override
-  State<DropDownApp> createState() => _DropDownAppState(
+  // ignore: no_logic_in_create_state
+  State<DropDownApp> createState() =>  _DropDownAppState(
     valueChoose: valueChoose,
     listDrop: listDrop,
     hintText: hintText,
@@ -60,14 +64,14 @@ class _DropDownAppState extends State<DropDownApp> {
         borderRadius: BorderRadius.circular(13.0),
         isDense: true,
         isExpanded: true,
-        hint: TextNormal(
+        hint: NormalText(
           text: widget.hintText,
           sizeText: widget.sizeHint,
         ),
         items: widget.listDrop.map((e) {
           return DropdownMenuItem(
             value: e ,
-            child: TextNormal(
+            child: NormalText(
               text: "$e",
               colorText: Colors.black,
             ),
