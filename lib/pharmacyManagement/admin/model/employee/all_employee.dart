@@ -4,19 +4,19 @@ class AllEmployeeModel {
   final String name;
   final int id;
   final String email;
-  final String age;
   final String gender;
-  final String phone;
+  final String address;
   final String image;
+  final String statu ;
 
   AllEmployeeModel({
     required this.name,
     required this.id,
     required this.email,
-    required this.age,
     required this.gender,
-    required this.phone,
+    required this.address,
     required this.image,
+    required this.statu,
   });
 
   factory AllEmployeeModel.fromJson(Map<String, dynamic> json) {
@@ -24,10 +24,10 @@ class AllEmployeeModel {
       name: json['name'],
       id: json['id'],
       email: json['email'],
-      age: json['age'],
       gender: json['gender'],
-      phone: json['phone'],
-      image: json['image'],
+      address: json['address'],
+      image: json['image_url'],
+      statu: json['statu'],
     );
   }
 }

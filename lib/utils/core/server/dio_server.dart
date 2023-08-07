@@ -1,35 +1,57 @@
 import 'package:dio/dio.dart';
+import 'package:pharmacy_system/utils/core/constance/token.dart';
 
 class DioServer {
- static  Dio dio = Dio();
+  static Dio dio = Dio();
 
-
- static Future<Response> getData ({
+  static Future<Response> getData({
     required String url,
-  })async {
+    String? token,
+  }) async {
+    dio.options.headers = {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "Authorization": token,
+    };
     return await dio.get(url);
   }
 
   static Future<Response> postData({
     required String url,
     required Map<String, dynamic> data,
+    String? token,
   }) async {
-   dio.options.headers = {
-     "Accept" : "application/json",
-     "Content-Type" : "application/json"
-   };
-    return await dio.post(url, data:data);
+    dio.options.headers = {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "Authorization": token,
+    };
+    return await dio.post(url, data: data);
   }
 
- static Future<Response> putData({
+  static Future<Response> putData({
     required String url,
     required Map<String, dynamic> data,
-  })async {
-   return await dio.put(url, data: data);
+    String?token
+  }) async {
+    dio.options.headers = {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "Authorization": token,
+    };
+    return await dio.put(url, data:data);
   }
 
- static Future<Response> deleteData({required String url, required Map<String, dynamic> data}) async
- {
-    return await dio.delete(url, data: data);
+  static Future<Response> deleteData({
+    required String url,
+    required Map<String, dynamic> data,
+    String? token,
+  }) async {
+    dio.options.headers = {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "Authorization": token,
+    };
+    return await dio.delete(url, data:data);
   }
 }

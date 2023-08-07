@@ -174,24 +174,21 @@ class VerifyScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 80,
                               ),
-                              BlocProvider<LoginCubit>(
-                                create: (context) => LoginCubit(),
-                                child: BlocConsumer<LoginCubit, LoginStates>(
-                                  listener: (context, state) {},
-                                  builder: (context, state) => Container(
-                                    margin: const EdgeInsets.symmetric(
-                                        horizontal: 10.0),
-                                    child: BasicBottom(
-                                      colorText: Colors.white,
-                                      text: "Verify",
-                                      onPressed: () {
-                                        LoginCubit.get(context).verifyCode(
-                                          context: context,
-                                          code:
-                                              "${controller1.text}${controller2.text}${controller3.text}${controller4.text}",
-                                        );
-                                      },
-                                    ),
+                              BlocConsumer<LoginCubit, LoginStates>(
+                                listener: (context, state) {},
+                                builder: (context, state) => Container(
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 10.0),
+                                  child: BasicBottom(
+                                    colorText: Colors.white,
+                                    text: "Verify",
+                                    onPressed: () {
+                                      LoginCubit.get(context).verifyCode(
+                                        context: context,
+                                        code:
+                                            "${controller1.text}${controller2.text}${controller3.text}${controller4.text}",
+                                      );
+                                    },
                                   ),
                                 ),
                               ),

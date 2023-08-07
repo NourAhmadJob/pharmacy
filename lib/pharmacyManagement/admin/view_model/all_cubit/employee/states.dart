@@ -1,3 +1,5 @@
+import '../../../model/employee/update_employee.dart';
+
 abstract class EmployeeStates{}
 
 class EmployeeInitialState extends EmployeeStates{}
@@ -27,10 +29,20 @@ class EmployeeDeleteErrorState extends EmployeeStates{
 
 class EmployeeUpdateLoadingState extends EmployeeStates {}
 
-class EmployeeUpdateSuccessState extends EmployeeStates{}
+class EmployeeUpdateSuccessState extends EmployeeStates{
+  final UpdateEmployeeModelMain model ;
+
+  EmployeeUpdateSuccessState({required this.model});
+}
 
 class EmployeeUpdateErrorState extends EmployeeStates{
   final String error ;
 
   EmployeeUpdateErrorState({required this.error});
 }
+
+// _____________________________________ Add Employee
+class AddEmployeeLoadingState extends EmployeeStates {}
+
+class AddEmployeeSuccessState extends EmployeeStates{}
+

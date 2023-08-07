@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
 void navigateTo({
   required context,
   required Widget screen,
 }) {
-  Navigator.of(context).push(MaterialPageRoute(builder: (context) => screen));
+  Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: (context) => screen,
+    ),
+
+  );
 }
 
 void navigateAndFinish({
@@ -17,10 +23,6 @@ void navigateAndFinish({
   );
 }
 
-
-void navigateBack({
-  required context
-}){
+void navigateBack({required context}) {
   Navigator.of(context).pop();
 }
-

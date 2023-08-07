@@ -3,19 +3,15 @@ import 'package:pharmacy_system/pharmacyManagement/admin/model/company/all_compa
 import 'package:pharmacy_system/pharmacyManagement/admin/view/screen/company/details_company.dart';
 import 'package:pharmacy_system/utils/fucntion/navigate.dart';
 import 'package:pharmacy_system/utils/widget/all_app/text_normal.dart';
-class Item extends StatelessWidget {
 
-  final  AllCompanyModel allCompanyModel ;
+class Item extends StatelessWidget {
+  final AllCompanyModel allCompanyModel;
 
   const Item({super.key, required this.allCompanyModel});
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: (){
-        navigateTo(context: context, screen: const DetailsCompany());
-      },
-      child: Card(
+    return  Card(
         color: Colors.grey.shade300,
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -25,6 +21,7 @@ class Item extends StatelessWidget {
                 width: 120.0,
                 height: 120.0,
                 decoration: BoxDecoration(
+                  color: Colors.red,
                   borderRadius: BorderRadius.circular(10.0),
                   image: const DecorationImage(
                     image: AssetImage("assets/images/open.png"),
@@ -43,14 +40,36 @@ class Item extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Expanded(
-                          child: NormalText(
-                            text: "Name Name Name Name Name Name Name Name Name Name Name Name Name Name  ",
-                            heightText: 1.5,
-                            colorText: Colors.black,
-                            textOverflow: TextOverflow.ellipsis,
-                            maxLine: 3,
-                          )),
-                      NormalText(text: allCompanyModel.name , colorText: Colors.black,)
+                        child: NormalText(
+                          text: allCompanyModel.name,
+                          heightText: 1.5,
+                          colorText: Colors.black,
+                          textOverflow: TextOverflow.ellipsis,
+                          maxLine: 3,
+                          sizeText: 20.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      NormalText(
+                        text: allCompanyModel.email,
+                        colorText: Colors.black,
+                        maxLine: 1,
+                        textOverflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(
+                        height: 10.0,
+                      ),
+                      NormalText(
+                        text: allCompanyModel.phone,
+                        colorText: Colors.black,
+                      ),
+                      const SizedBox(
+                        height: 10.0,
+                      ),
+                      NormalText(
+                        text: allCompanyModel.location,
+                        colorText: Colors.black,
+                      ),
                     ],
                   ),
                 ),
@@ -58,7 +77,7 @@ class Item extends StatelessWidget {
             ],
           ),
         ),
-      ),
+
     );
   }
 }

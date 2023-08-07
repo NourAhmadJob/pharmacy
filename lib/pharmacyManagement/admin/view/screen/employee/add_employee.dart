@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pharmacy_system/pharmacyManagement/admin/view_model/all_cubit/employee/cubit.dart';
 import 'package:pharmacy_system/utils/core/constance/color_constance.dart';
 import 'package:pharmacy_system/utils/widget/all_app/basic_bottom.dart';
 import 'package:pharmacy_system/utils/widget/all_app/drop_down_menu.dart';
 import 'package:pharmacy_system/utils/widget/all_app/text_form_field.dart';
 import 'package:pharmacy_system/utils/widget/all_app/text_normal.dart';
+
+import '../../../view_model/all_cubit/employee/states.dart';
+
 class AddEmployee extends StatefulWidget {
   const AddEmployee({super.key});
 
@@ -11,7 +16,7 @@ class AddEmployee extends StatefulWidget {
   State<AddEmployee> createState() => _AddEmployeeState();
 }
 
-enum Gender {male, female}
+enum Gender { male, female }
 
 class _AddEmployeeState extends State<AddEmployee> {
   TextEditingController nameController = TextEditingController();
@@ -19,6 +24,8 @@ class _AddEmployeeState extends State<AddEmployee> {
   TextEditingController emailController = TextEditingController();
 
   TextEditingController passwordController = TextEditingController();
+
+  TextEditingController confirmPasswordController = TextEditingController();
 
   TextEditingController addressController = TextEditingController();
 
@@ -104,6 +111,26 @@ class _AddEmployeeState extends State<AddEmployee> {
                   height: 25.0,
                 ),
                 DefaultFormField(
+                  controller: confirmPasswordController,
+                  hint: "Confirm Password",
+                  prefixIcon: Icons.lock,
+                  suffixIcon: Icons.visibility_off,
+                  obscure: true,
+                  type: TextInputType.visiblePassword,
+                  validate: (String? value) {
+                    if (value!.isEmpty) {
+                      return "Enter  Password Employee ";
+                    }
+                    if (value.length < 10) {
+                      return "Please your password should by 10 characters or more";
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(
+                  height: 25.0,
+                ),
+                DefaultFormField(
                   controller: addressController,
                   hint: "Address",
                   prefixIcon: Icons.location_on,
@@ -156,7 +183,9 @@ class _AddEmployeeState extends State<AddEmployee> {
                             const SizedBox(
                               width: 10.0,
                             ),
-                            NormalText(text: "Male",),
+                            NormalText(
+                              text: "Male",
+                            ),
                             Radio(
                               value: Gender.male,
                               groupValue: gender,
@@ -204,17 +233,34 @@ class _AddEmployeeState extends State<AddEmployee> {
                   height: 30.0,
                 ),
                 DropDownApp(
-                  listDrop: const ["Laboratory", "Pharmacist"],
+                  listDrop: const ["Laboratory", "Pharmacist", "New..."],
                   hintText: "Choose role employee",
                   valueChoose: valueChoose,
                 ),
-                const SizedBox(height: 40.0,),
-                BasicBottom(
-                  text: "Add Employee",
-                  onPressed: () {
-                    // get api add employee
+                const SizedBox(
+                  height: 40.0,
+                ),
+                BlocConsumer<EmployeeCubit, EmployeeStates>(
+                  listener: (context, state) {
+
                   },
-                  colorText: Colors.white,
+                  builder: (context, state) => BasicBottom(
+                    text: "Add Employee",
+                    onPressed: () {
+                      EmployeeCubit.get(context).addEmployee(
+                        name: nameController.text,
+                        email: emailController.text,
+                        password: passwordController.text,
+                        c_password: confirmPasswordController.text,
+                        phone: phoneController.text,
+                        gender: gender.toString(),
+                        address: addressController.text,
+                        role: valueChoose=="Laboratory"? 1 : 2,
+                        context: context
+                      );
+                    },
+                    colorText: Colors.white,
+                  ),
                 ),
               ],
             ),

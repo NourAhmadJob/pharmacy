@@ -1,28 +1,27 @@
 class AllCompanyModel {
   final String name;
-
-  final String description;
-
+  final int companyTypeId ;
   final int id;
-
+  final String location ;
   final String email;
   final String phone;
-
   AllCompanyModel({
     required this.name,
-    required this.description,
     required this.id,
+    required this.companyTypeId,
     required this.email,
     required this.phone,
+    required this.location ,
   });
 
   factory AllCompanyModel.fromJson(Map<String, dynamic> json) {
     return AllCompanyModel(
       name: json['name'],
-      description: json['des'],
       id: json['id'],
+      companyTypeId: json['companiesTypeId'],
+      location: json['location'],
       email: json['email'],
-      phone: json['phone'],
+      phone: json['phone_number'],
     );
   }
 }

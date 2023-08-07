@@ -33,7 +33,6 @@ class DefaultFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 55.0,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(borderRadius!),
       ),

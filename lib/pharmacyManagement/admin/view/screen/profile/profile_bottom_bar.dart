@@ -1,0 +1,228 @@
+import 'package:flutter/material.dart';
+import 'package:pharmacy_system/pharmacyManagement/admin/view/screen/cart/cart_screen.dart';
+import 'package:pharmacy_system/pharmacyManagement/admin/view/screen/company/all_company.dart';
+import 'package:pharmacy_system/pharmacyManagement/admin/view/screen/employee/all_employee.dart';
+import 'package:pharmacy_system/pharmacyManagement/admin/view/screen/laboratory/all_laboratory.dart';
+import 'package:pharmacy_system/pharmacyManagement/admin/view/screen/setting/setting_screen.dart';
+import 'package:pharmacy_system/utils/core/constance/color_constance.dart';
+import 'package:pharmacy_system/utils/fucntion/navigate.dart';
+import 'package:pharmacy_system/utils/widget/all_app/text_botton.dart';
+import 'package:pharmacy_system/utils/widget/all_app/text_normal.dart';
+import 'package:pharmacy_system/utils/widget/profile/profile_home.dart';
+
+class ProfilBottomBar extends StatelessWidget {
+  const ProfilBottomBar({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0.0,
+        backgroundColor: AllColors.appColor,
+        title: NormalText(
+          text: "Profiles",
+          sizeText: 18.0,
+          fontWeight: FontWeight.w800,
+          colorText: Colors.white,
+        ),
+      ),
+      body: Column(
+        children: [
+          Container(
+            height: 110.0,
+            color: AllColors.appColor,
+            child: Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const CircleAvatar(
+                    radius: 60.0,
+                    foregroundImage: AssetImage(
+                      "assets/images/open.png",
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 10.0,
+                  ),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        NormalText(
+                          text: "Noor Ahmad",
+                          colorText: Colors.white,
+                          sizeText: 20.0,
+                          fontWeight: FontWeight.w700,
+                        ),
+                        SizedBox(
+                          height: 8.0,
+                        ),
+                        NormalText(
+                          text: "noorahmad@gmail.com",
+                          colorText: Colors.grey.shade200,
+                          sizeText: 14.0,
+                          maxLine: 1,
+                        ),
+                        const SizedBox(
+                          height: 15.0,
+                        ),
+                        InkWell(
+                          onTap: () {},
+                          child: Container(
+                            width: 90.0,
+                            height: 20.0,
+                            padding:
+                                const EdgeInsets.only(left: 6.0, right: 8.0),
+                            decoration: BoxDecoration(
+                              color: Colors.grey,
+                              borderRadius: BorderRadius.circular(6.0),
+                            ),
+                            child: Row(
+                              children: [
+                                const Icon(
+                                  Icons.edit,
+                                  size: 18.0,
+                                  color: Colors.white,
+                                ),
+                                const SizedBox(
+                                  width: 10.0,
+                                ),
+                                NormalText(
+                                  text: "Edit",
+                                  colorText: Colors.white,
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 8.0,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Expanded(
+            child: ListView(
+              physics: const BouncingScrollPhysics(),
+              children: [
+                ProfileBottom(
+                  icon: Icons.settings,
+                  text: "Setting",
+                  onPressed: () {
+                    navigateTo(
+                      context: context,
+                      screen: const SettingScreen(),
+                    );
+                  },
+                ),
+                const Divider(
+                  thickness: 1.5,
+                ),
+                ProfileBottom(
+                  icon: Icons.shopping_cart_outlined,
+                  text: "My Cart",
+                  onPressed: () {
+                    navigateTo(
+                      context: context,
+                      screen: const CartScreen(),
+                    );
+                  },
+                ),
+                const Divider(
+                  thickness: 1.5,
+                ),
+                ProfileBottom(
+                  icon: Icons.favorite_border,
+                  text: "WishList",
+                  onPressed: () {},
+                ),
+                const Divider(
+                  thickness: 1.5,
+                ),
+                ProfileBottom(
+                  icon: Icons.checkroom_outlined,
+                  text: "Laboratory",
+                  onPressed: () {
+                    navigateTo(context: context, screen: const MyLaboratory());
+                  },
+                ),
+                const Divider(
+                  thickness: 1.5,
+                ),
+                ProfileBottom(
+                  icon: Icons.people,
+                  text: "My Employee",
+                  onPressed: () {
+                    navigateTo(
+                      context: context,
+                      screen: AllEmployee(),
+                    );
+                  },
+                ),
+                const Divider(
+                  thickness: 1.5,
+                ),
+                ProfileBottom(
+                  icon: Icons.maps_home_work_outlined,
+                  text: "Contact Company",
+                  onPressed: () {
+                    navigateTo(
+                      context: context,
+                      screen: AllCompany(),
+                    );
+                  },
+                ),
+                const Divider(
+                  thickness: 1.5,
+                ),
+                ProfileBottom(
+                  icon: Icons.logout,
+                  text: "Log out",
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        actions: [
+                          DefaultTextButton(
+                            text: "No",
+                            onPressed: () {
+                              navigateBack(context: context);
+                            },
+                            fontWeight: FontWeight.w700,
+                          ),
+                          DefaultTextButton(
+                            text: "Yes",
+                            onPressed: () {
+                              // clear token and Navigate to Login Screen
+                            },
+                            color: Colors.red,
+                            fontWeight: FontWeight.w700,
+                          )
+                        ],
+                        title: NormalText(
+                          text: "Are you sure to Log out ? ",
+                          fontWeight: FontWeight.w800,
+                          sizeText: 20.0,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                const Divider(
+                  thickness: 1.5,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

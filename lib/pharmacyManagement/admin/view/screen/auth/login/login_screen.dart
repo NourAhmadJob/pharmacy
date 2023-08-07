@@ -1,3 +1,4 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharmacy_system/pharmacyManagement/admin/view/screen/auth/forget_password/forget_password.dart';
@@ -46,6 +47,7 @@ class LoginScreen extends StatelessWidget {
                       height: 10.0,
                     ),
                     DefaultFormField(
+                      hint: "Email",
                       prefixIcon: Icons.email,
                       controller: emailController,
                       type: TextInputType.emailAddress,
@@ -58,7 +60,7 @@ class LoginScreen extends StatelessWidget {
                         }
                         return null;
                       },
-                      borderRadius: 12,
+                      borderRadius: 12.0,
                     ),
                     const SizedBox(
                       height: 30.0,
@@ -68,10 +70,16 @@ class LoginScreen extends StatelessWidget {
                       height: 10.0,
                     ),
                     DefaultFormField(
+                      hint: "Password",
                       borderRadius: 12.0,
                       controller: passwordController,
                       type: TextInputType.visiblePassword,
-                      validate: (value) {},
+                      validate: (String? value) {
+                        if(value!.isEmpty){
+                           return "Enter your password ";
+                        }
+                        return null ;
+                      },
                       obscure: true,
                       prefixIcon: Icons.lock,
                       suffixIcon: Icons.visibility_off,

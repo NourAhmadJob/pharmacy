@@ -33,3 +33,12 @@ Color chooseToastColor(ToastState state) {
   }
   return color;
 }
+
+void messageSnackBar(
+        {required context, required String text, required ToastState state}) =>
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(text),
+        backgroundColor: chooseToastColor(state),
+      ),
+    );

@@ -55,20 +55,17 @@ class ForgetPassword extends StatelessWidget {
                 const SizedBox(
                   height: 25.0,
                 ),
-                BlocProvider<LoginCubit>(
-                  create:(context)=> LoginCubit(),
-                  child: BlocConsumer<LoginCubit , LoginStates>(
-                    listener: (context ,state){},
-                    builder: (context ,state) =>  BasicBottom(
-                      text: "Next Verify",
-                      colorText: Colors.white,
-                      onPressed: () {
-                        LoginCubit.get(context).forgetEmailOne(
-                          email: emailController.text,
-                          context: context,
-                        );
-                      },
-                    ),
+                BlocConsumer<LoginCubit , LoginStates>(
+                  listener: (context ,state){},
+                  builder: (context ,state) =>  BasicBottom(
+                    text: "Next Verify",
+                    colorText: Colors.white,
+                    onPressed: () {
+                      LoginCubit.get(context).forgetEmailOne(
+                        email: emailController.text,
+                        context: context,
+                      );
+                    },
                   ),
                 ),
               ],
