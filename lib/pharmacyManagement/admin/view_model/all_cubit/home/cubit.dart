@@ -1,12 +1,16 @@
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pharmacy_system/pharmacyManagement/admin/model/company/all_midicine.dart';
 import 'package:pharmacy_system/pharmacyManagement/admin/model/grud/all_grud.dart';
 import 'package:pharmacy_system/pharmacyManagement/admin/view/screen/business/business.dart';
 import 'package:pharmacy_system/pharmacyManagement/admin/view/screen/home/home_screen.dart';
 import 'package:pharmacy_system/pharmacyManagement/admin/view/screen/order/all_order.dart';
 import 'package:pharmacy_system/pharmacyManagement/admin/view/screen/profile/profile_bottom_bar.dart';
 import 'package:pharmacy_system/pharmacyManagement/admin/view_model/all_cubit/home/states.dart';
+import 'package:pharmacy_system/utils/core/constance/api_constance.dart';
+import 'package:pharmacy_system/utils/core/server/dio_server.dart';
 
 class HomeCubit extends Cubit<HomeStates> {
 
@@ -53,6 +57,20 @@ class HomeCubit extends Cubit<HomeStates> {
   {
     filter = old.where((element) => element.name.toLowerCase().contains(value)).toList();
     emit(SearchHomeSuccess());
+  }
+   List<AllMedicineCompanyModel> allGruds = [];
+  void getAllGrudsHome()async{
+   try {
+     allGruds = [];
+      final Response response =
+          await DioServer.getData(url: ApiConstance.allGruds);
+      response.data['products'].forEach((element){
+        allGruds.add(AllMedicineCompanyModel.fromJson(element));
+      });
+    }on DioException catch(e){
+     if(e.response!.statusCode == 400){}
+     else if(e.response!.statusCode == 401){}
+   }
   }
 
 }

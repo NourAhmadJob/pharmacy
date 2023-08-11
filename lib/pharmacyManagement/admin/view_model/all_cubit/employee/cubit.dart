@@ -23,7 +23,7 @@ class EmployeeCubit extends Cubit<EmployeeStates> {
     allEmployeeList = [];
     emit(EmployeeLoadingState());
     final Response response = await DioServer.getData(
-        url: ApiConstance.allEemployee, token: tokenDataBearer);
+        url: ApiConstance.allEemployee, token: tokenData);
     response.data['employees'].forEach((element) {
       allEmployeeList.add(AllEmployeeModel.fromJson(element));
       emit(EmployeeSuccessState());
@@ -55,7 +55,7 @@ class EmployeeCubit extends Cubit<EmployeeStates> {
           "role": role,
           "phone_number": phone
         },
-        token: tokenDataBearer,
+        token: tokenData,
       );
 
       messageSnackBar(
@@ -91,25 +91,26 @@ class EmployeeCubit extends Cubit<EmployeeStates> {
       if (e.response!.statusCode == 400) {}
     }
   }
+
   UpdateEmployeeModelMain? model;
-  void updateEmployee({
-    required String name,
-    required String email,
-    required String password,
-    required String c_password,
-    required int id,
-    required String address,
-    required String phone,
-    required String gender,
-    required String salary,
-    required bool employeeMonth,
-    context
-  }) async {
+
+  void updateEmployee(
+      {required String name,
+      required String email,
+      required String password,
+      required String c_password,
+      required int id,
+      required String address,
+      required String phone,
+      required String gender,
+      required String salary,
+      required bool employeeMonth,
+      context}) async {
     emit(EmployeeUpdateLoadingState());
     try {
       final Response response = await DioServer.putData(
         url: ApiConstance.updateEmployee,
-        token: tokenDataBearer,
+        token: tokenData,
         data: {
           "email": email,
           "name": name,
@@ -123,8 +124,11 @@ class EmployeeCubit extends Cubit<EmployeeStates> {
           "salary": salary,
         },
       );
-       model= UpdateEmployeeModelMain.fromJson(response.data);
-       messageSnackBar(context: context, text: "Update Details Employee Successfully", state: ToastState.Success);
+      model = UpdateEmployeeModelMain.fromJson(response.data);
+      messageSnackBar(
+          context: context,
+          text: "Update Details Employee Successfully",
+          state: ToastState.Success);
       emit(EmployeeUpdateSuccessState(model: model!));
       navigateBack(context: context);
     } on DioException catch (e) {
@@ -136,5 +140,17 @@ class EmployeeCubit extends Cubit<EmployeeStates> {
         );
       }
     }
+  }
+
+  void searchEmployee({
+    required String text
+})async {
+    try{
+     Response response = await DioServer.postData(
+        url: ApiConstance.searchEmployee,
+        token: tokenData,
+        data: {"name": text},
+      );
+    } on DioException catch(e){}
   }
 }

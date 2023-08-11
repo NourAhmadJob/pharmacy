@@ -1,10 +1,7 @@
 class LoginModel {
   final String message;
-
   final String operation;
-
   final String token;
-
   final EmployeeModel employeeModel;
 
   LoginModel({

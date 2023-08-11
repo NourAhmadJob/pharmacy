@@ -18,7 +18,7 @@ class CompanyCubit extends Cubit<CompanyStates> {
 
   void getAllCompany() {
     emit(CompanyLoadingState());
-    DioServer.getData(url: ApiConstance.allCompany , token: tokenDataBearer)
+    DioServer.getData(url: ApiConstance.allCompany , token: tokenData)
         .then(
           (value) {
             allCompany = [];
@@ -41,7 +41,7 @@ class CompanyCubit extends Cubit<CompanyStates> {
 
   void getAllMedicineInCompany(){
     emit(CompanyLoadingState());
-    DioServer.getData(url: ApiConstance.allMedicineCompany , token: tokenDataBearer)
+    DioServer.getData(url: ApiConstance.allMedicineCompany , token: tokenData)
         .then(
           (value) {
         value.data['products'].forEach((element){
@@ -65,7 +65,7 @@ class CompanyCubit extends Cubit<CompanyStates> {
     emit(CompanyDeleteLoadingState());
     final Response response = await DioServer.deleteData(
       url: ApiConstance.deleteCompany,
-      token: tokenDataBearer,
+      token: tokenData,
       data: {
         "companyId": id,
       },
@@ -88,7 +88,7 @@ class CompanyCubit extends Cubit<CompanyStates> {
     emit(CompanyUpdateLoadingState());
     final response = await DioServer.putData(
       url: ApiConstance.updateCompany,
-      token: tokenDataBearer,
+      token: tokenData,
       data: {
         "name": name,
         "email": email,
@@ -101,4 +101,18 @@ class CompanyCubit extends Cubit<CompanyStates> {
     print(response.data);
     emit(CompanyUpdateSuccessState());
   }
+
+
+  void searchCompany({
+    required String text
+  })async {
+    try{
+      Response response = await DioServer.postData(
+        url: ApiConstance.searchCompany,
+        token: tokenData,
+        data: {"name": text},
+      );
+    } on DioException catch(e){}
+  }
+
 }

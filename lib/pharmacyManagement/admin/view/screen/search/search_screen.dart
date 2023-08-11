@@ -43,7 +43,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 filter = EmployeeCubit.get(context)
                     .allEmployeeList
                     .where((element) =>
-                        element.name.toLowerCase().contains(value!) || element.email.toLowerCase().contains(value!))
+                        element.name.toLowerCase().contains(value!) || element.email.toLowerCase().contains(value))
                     .toList();
               });
             },

@@ -60,8 +60,8 @@ class LoginCubit extends Cubit<LoginStates> {
       },
     ).then((value) {
       loginModel = LoginModel.fromJson(value.data);
-      SharedPref.saveData(key: "token", value: loginModel!.token).then((value) {
-        tokenData = SharedPref.getData(key: "token");
+      SharedPref.saveData(key: "token", value: loginModel!.token.toString()).then((value) {
+        tokenData = loginModel!.token.toString();
         showToast(message: "Success", state: ToastState.Success);
         navigateAndFinish(context: context, screen: const BottomScreen());
       });

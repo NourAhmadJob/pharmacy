@@ -285,7 +285,7 @@ class DetailsCompany extends StatelessWidget {
                                     Text(
                                         CompanyCubit.get(context)
                                             .allMedicineCompany[index]
-                                            .name,
+                                            .name!,
                                         style: const TextStyle(
                                             color: Colors.black,
                                             fontWeight: FontWeight.w600,
@@ -296,7 +296,7 @@ class DetailsCompany extends StatelessWidget {
                                     Text(
                                       CompanyCubit.get(context)
                                           .allMedicineCompany[index]
-                                          .manufactorerName,
+                                          .manufactorerName!,
                                       style: const TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.w500,
@@ -309,7 +309,7 @@ class DetailsCompany extends StatelessWidget {
                                     NormalText(
                                       text: CompanyCubit.get(context)
                                           .allMedicineCompany[index]
-                                          .typeOneProduct
+                                          .typeOneProduct!
                                           .name,
                                     ),
                                   ],

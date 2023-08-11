@@ -14,6 +14,7 @@ class SharedPref {
 }) async
   {
 
+      // ignore: unnecessary_type_check
       if(key is String )  return await sharedPreferences.setString(key, value) ;
       if(key is int )  return await sharedPreferences.setInt(key ,value) ;
       if(key is bool )  return await sharedPreferences.setBool(key, value) ;

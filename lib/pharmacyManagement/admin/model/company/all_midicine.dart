@@ -1,16 +1,14 @@
 class AllMedicineCompanyModel {
-  final int id;
-  final int barcode;
-  final String name;
-  final String dosage;
-  final String description;
-  final String image;
-  final CategoryOneProduct categoryOneProduct;
-  final String manufactorerName;
-  final TypeOneProduct typeOneProduct;
-
-  final CompaniesOneProduct companiesOneProduct;
-  //final CompanyProductItems2 companyProductItems;
+   int? id;
+   int? barcode;
+   String? dosage;
+   String? name;
+   String? description;
+   String? image;
+   CategoryOneProduct? categoryOneProduct;
+   String? manufactorerName;
+   TypeOneProduct? typeOneProduct;
+  List<CompaniesOneProduct> companiesOneProduct = [];
 
   AllMedicineCompanyModel({
     required this.id,
@@ -23,25 +21,21 @@ class AllMedicineCompanyModel {
     required this.categoryOneProduct,
     required this.typeOneProduct,
     required this.companiesOneProduct,
-    //required this.companyProductItems
   });
 
-  factory AllMedicineCompanyModel.fromJson(Map<String, dynamic> json) {
-    return AllMedicineCompanyModel(
-      id: json['id'],
-      barcode: json['barcode'],
-      name: json['name'],
-      dosage: json['dosage'],
-      description: json['description'],
-      image: json['image_url'],
-      manufactorerName: json['manufactorer_name'],
-      categoryOneProduct: CategoryOneProduct.fromJson(json['category']),
-      typeOneProduct: TypeOneProduct.fromJson(json['type']),
-      companiesOneProduct: CompaniesOneProduct.fromJson(json['scince']),
-      // companyProductItems: CompanyProductItems.fromJson(
-      //
-      // ),
-    );
+   AllMedicineCompanyModel.fromJson(Map<String, dynamic> json) {
+     id = json['id'];
+     barcode= json['barcode'];
+     name= json['name'];
+     dosage= json['dosage'];
+     description= json['description'];
+     image= json['image_url'];
+     manufactorerName= json['manufactorer_name'];
+     categoryOneProduct= CategoryOneProduct.fromJson(json['category']);
+     typeOneProduct= TypeOneProduct.fromJson(json['type']);
+     companiesOneProduct= json['companies'].forEach((element){
+     companiesOneProduct.add(CompaniesOneProduct.fromJson(element));
+     }) ;
   }
 }
 
@@ -67,39 +61,72 @@ class TypeOneProduct {
 
 class CompaniesOneProduct {
   final String name;
+  CompanyProductItem companyProductItem;
 
-  CompaniesOneProduct({required this.name});
+  CompaniesOneProduct({required this.name, required this.companyProductItem});
 
   factory CompaniesOneProduct.fromJson(Map<String, dynamic> json) {
-    return CompaniesOneProduct(name: json['name']);
-  }
-}
-class CompanyProductItems2 {
-  final List<CompanyProductItems> list = [];
-
-   CompanyProductItems2.fromJson(Map<String , dynamic>json){
-     json['companies'].forEach((element){
-       list.add(CompanyProductItems.fromJson(element));
-     });
-   }
-}
-class CompanyProductItems {
-
-  final int id;
-  final int price;
-  final String expirationDate;
-
-  CompanyProductItems({
-    required this.id,
-    required this.price,
-    required this.expirationDate,
-  });
-
-  factory CompanyProductItems.fromJson(Map<String, dynamic> json) {
-    return CompanyProductItems(
-      id: json['id'],
-      price: json['price'],
-      expirationDate: json['expiration_date'],
+    return CompaniesOneProduct(
+      name: json['name'],
+      companyProductItem: CompanyProductItem.fromJson(
+        json['company_product_items'],
+      ),
     );
   }
 }
+
+class CompanyProductItem {
+  final int id;
+  final int price;
+  final expirationDate;
+  final int companyId;
+  final int productId;
+
+  CompanyProductItem({
+    required this.id,
+    required this.price,
+    required this.expirationDate,
+    required this.companyId,
+    required this.productId,
+  });
+
+  factory CompanyProductItem.fromJson(Map<String, dynamic> json) {
+    return CompanyProductItem(
+      id: json['id'],
+      price: json['price'],
+      expirationDate: json['expiration_date'],
+      companyId: json['companyId'],
+      productId: json['productId'],
+    );
+  }
+}
+
+// class CompanyProductItems2 {
+//   final List<CompanyProductItems> list = [];
+//
+//    CompanyProductItems2.fromJson(Map<String , dynamic>json){
+//      json['companies'].forEach((element){
+//        list.add(CompanyProductItems.fromJson(element));
+//      });
+//    }
+// }
+// class CompanyProductItems {
+//
+//   final int id;
+//   final int price;
+//   final String expirationDate;
+//
+//   CompanyProductItems({
+//     required this.id,
+//     required this.price,
+//     required this.expirationDate,
+//   });
+//
+//   factory CompanyProductItems.fromJson(Map<String, dynamic> json) {
+//     return CompanyProductItems(
+//       id: json['id'],
+//       price: json['price'],
+//       expirationDate: json['expiration_date'],
+//     );
+//   }
+// }

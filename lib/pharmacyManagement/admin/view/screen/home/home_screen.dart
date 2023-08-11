@@ -5,6 +5,7 @@ import 'package:pharmacy_system/pharmacyManagement/admin/view_model/all_cubit/co
 import 'package:pharmacy_system/pharmacyManagement/admin/view_model/all_cubit/employee/cubit.dart';
 import 'package:pharmacy_system/pharmacyManagement/admin/view_model/all_cubit/home/cubit.dart';
 import 'package:pharmacy_system/pharmacyManagement/admin/view_model/all_cubit/home/states.dart';
+import 'package:pharmacy_system/pharmacyManagement/admin/view_model/all_cubit/laboratory/cubit.dart';
 import 'package:pharmacy_system/utils/core/constance/color_constance.dart';
 import 'package:pharmacy_system/utils/fucntion/navigate.dart';
 import 'package:pharmacy_system/utils/widget/all_app/icon_button.dart';
@@ -33,6 +34,7 @@ class HomeScreen extends StatelessWidget {
                 DefaultIconButton(
                   iconData: Icons.notifications,
                   onPressed: () {
+                    LaboratoryCubit.get(context).getAllLaboratory();
                   },
                 ),
                 DefaultIconButton(

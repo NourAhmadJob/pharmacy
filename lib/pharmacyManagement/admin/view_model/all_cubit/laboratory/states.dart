@@ -17,3 +17,10 @@ class LaboratoryDeleteSuccessState extends LaboratoryStates {}
 class LaboratoryAddLoadingState extends LaboratoryStates {}
 
 class LaboratoryAddSuccessState extends LaboratoryStates {}
+
+
+
+class OrderAddLoadingState extends LaboratoryStates {}
+
+class OrderAddSuccessState extends LaboratoryStates {}
+

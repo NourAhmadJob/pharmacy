@@ -1,19 +1,30 @@
-import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pharmacy_system/pharmacyManagement/admin/model/laboratory/all_laboratory_model.dart';
 import 'package:pharmacy_system/pharmacyManagement/admin/view_model/all_cubit/laboratory/states.dart';
 import 'package:pharmacy_system/utils/core/constance/api_constance.dart';
 import 'package:pharmacy_system/utils/core/constance/token.dart';
 import 'package:pharmacy_system/utils/core/server/dio_server.dart';
+import 'package:pharmacy_system/utils/fucntion/navigate.dart';
 import 'package:pharmacy_system/utils/fucntion/toast.dart';
 
 class LaboratoryCubit extends Cubit<LaboratoryStates> {
   LaboratoryCubit() : super(LaboratoryInitialState());
 
+  static LaboratoryCubit get(context) => BlocProvider.of(context);
+  AllLaboratoryModel? model;
+
   void getAllLaboratory() async {
     emit(LaboratoryAllLoadingState());
+    print("hello 1");
     try {
       final Response response = await DioServer.getData(
-          url: ApiConstance.allLaboratory, token: tokenDataBearer);
+        url: ApiConstance.allLaboratory,
+        token: tokenData,
+      );
+      print("hello 2");
+      model = AllLaboratoryModel.fromJson(response.data['laboratories']);
+      print(model!.phone);
       emit(LaboratoryAllSuccessState());
     } on DioException catch (e) {
       if (e.response!.statusCode == 400) {
@@ -30,7 +41,7 @@ class LaboratoryCubit extends Cubit<LaboratoryStates> {
     try {
       final Response response = await DioServer.postData(
         url: ApiConstance.addLaboratory,
-        token: tokenDataBearer,
+        token: tokenData,
         data: {"name": name, "email": email, "phone_number": phone},
       );
       emit(LaboratoryAddSuccessState());
@@ -40,19 +51,19 @@ class LaboratoryCubit extends Cubit<LaboratoryStates> {
     }
   }
 
-  void updateLaboratory({
-    required String name,
-    required String email,
-    required String phone,
-    required int id,
-    required int runOutLimit,
-    required expirationDate,
-  }) async {
+  void updateLaboratory(
+      {required String name,
+      required String email,
+      required String phone,
+      required int id,
+      required int runOutLimit,
+      required expirationDate,
+      context}) async {
     emit(LaboratoryEditLoadingState());
     try {
       final Response response = await DioServer.putData(
         url: ApiConstance.updateLaboratory,
-        token: tokenDataBearer,
+        token: tokenData,
         data: {
           "name": name,
           "email": email,
@@ -62,6 +73,9 @@ class LaboratoryCubit extends Cubit<LaboratoryStates> {
           "expirationDate": expirationDate,
         },
       );
+      model = AllLaboratoryModel.fromJson(response.data['laboratories']);
+      showToast(message: "Edit Success", state: ToastState.Success);
+      navigateBack(context: context);
       emit(LaboratoryEditSuccessState());
     } on DioException catch (e) {
       if (e.response!.statusCode == 400) {
@@ -77,7 +91,7 @@ class LaboratoryCubit extends Cubit<LaboratoryStates> {
         data: {
           "laboratoryId": id,
         },
-        token: tokenDataBearer,
+        token: tokenData,
       );
       showToast(message: "Delete Success", state: ToastState.Success);
       emit(LaboratoryDeleteSuccessState());
@@ -86,4 +100,77 @@ class LaboratoryCubit extends Cubit<LaboratoryStates> {
       } else if (e.response!.statusCode == 401) {}
     }
   }
+
+  void rejectOrder({required int id,context}) {
+    try {
+      DioServer.postData(
+        url: ApiConstance.orderReject,
+        token: tokenData,
+        data: {"orderId": id},
+      );
+      messageSnackBar(context: context, text: "Reject Order Success", state: ToastState.Success);
+    } on DioException catch (e) {
+      if (e.response!.statusCode == 400) {
+      } else if (e.response!.statusCode == 401) {}
+    }
+  }
+
+
+  void acceptOrder({required int id, context}) {
+    try {
+      DioServer.postData(
+        url: ApiConstance.orderAccept,
+        token: tokenData,
+        data: {"orderId": id},
+      );
+      messageSnackBar(context: context, text: "Accept Order Success", state: ToastState.Success);
+    } on DioException catch (e) {
+      if (e.response!.statusCode == 400) {
+      } else if (e.response!.statusCode == 401) {}
+    }
+  }
+
+  void deleteOrder({required int id , context}) {
+    try {
+      DioServer.deleteData(
+        url: ApiConstance.orderDelete,
+        token: tokenData,
+        data: {
+          "orderId": id,
+        },
+      );
+      messageSnackBar(context: context, text: "Delete Order Success", state: ToastState.Success);
+    } on DioException catch (e) {
+      if (e.response!.statusCode == 400) {
+      } else if (e.response!.statusCode == 401) {}
+    }
+  }
+
+  void addOrder({
+    required int id,
+    required int quantity,
+    required String title,
+    required String usage,
+    required String description,
+  }) async {
+    emit(OrderAddLoadingState());
+    try {
+      final Response response = await DioServer.postData(
+        url: ApiConstance.orderAdd,
+        token: tokenData,
+        data: {
+          "laboratoryId": id,
+          "title": title,
+          "description": description,
+          "usage": usage,
+          "quantity": quantity,
+        },
+      );
+      emit(OrderAddSuccessState());
+    } on DioException catch (e) {
+      if (e.response!.statusCode == 400) {
+      } else if (e.response!.statusCode == 401) {}
+    }
+  }
+
 }

@@ -19,6 +19,11 @@ class ApiConstance {
 
   static String deleteCompany = "$baseUrl/company/delete-company";
 
+  static String allGruds = "$baseUrl/company/products/display-all";
+
+  static String searchCompany = "$baseUrl/company/advanced-search";
+
+
  // _____________________________________ Employee
 
  static String allEemployee = "$baseUrl/employee/display-all";
@@ -26,6 +31,8 @@ class ApiConstance {
  static String addEmployee = "$baseUrl/employee/add-employee";
 
  static String updateEmployee = "$baseUrl/employee/update-employee";
+
+ static String searchEmployee = "$baseUrl/employee/advanced-search";
 
  // ______________________________________ Laboratory
 
@@ -36,4 +43,12 @@ class ApiConstance {
  static String updateLaboratory = "$baseUrl/laboratory/update-laboratory";
 
  static String deleteLaboratory = "$baseUrl/laboratory/delete-laboratory";
+
+ static String orderAdd = "$baseUrl/laboratory/order/add-order";
+
+ static String orderReject = "$baseUrl/laboratory/order/reject-order";
+
+ static String orderAccept = "$baseUrl/laboratory/order/accept-order";
+ static String orderDelete = "$baseUrl/laboratory/order/delete-order";
+
 }
