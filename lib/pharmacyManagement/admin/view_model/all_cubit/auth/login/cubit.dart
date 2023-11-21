@@ -21,12 +21,20 @@ class LoginCubit extends Cubit<LoginStates> {
 
   static LoginCubit get(context) => BlocProvider.of(context);
 
+  bool password = true;
+
+  void changePassword() {
+    password = !password;
+    emit(ChangePasswordState());
+  }
+
   void loginAdmin({
     required String email,
     required String password,
     context,
   }) async {
     try {
+      emit(LoginLoadingState());
       final Response response = await DioServer.postData(
         url: ApiConstance.loginUrl,
         data: {
@@ -34,11 +42,11 @@ class LoginCubit extends Cubit<LoginStates> {
           "password": password,
         },
       );
-      loadingCenter(context: context);
       showToast(
         message: "Login Success",
         state: ToastState.Success,
       );
+      emit(LoginSuccessState());
       navigateTo(context: context, screen: VerifyScreen());
     } on DioException catch (e) {
       if (e.response!.statusCode == 500) {
@@ -46,30 +54,51 @@ class LoginCubit extends Cubit<LoginStates> {
       } else if (e.response!.statusCode == 401) {
         showToast(
             message: e.response!.data['message'], state: ToastState.Error);
+        emit(LoginSuccessState());
+      } else if (e.response!.statusCode == 400) {
+        showToast(
+            message: e.response!.data['message'], state: ToastState.Error);
+        emit(LoginSuccessState());
+      }else if (e.response!.statusCode == 429) {
+        showToast(
+            message: e.response!.statusMessage.toString(), state: ToastState.Error);
+        emit(LoginSuccessState());
       }
     }
   }
 
   LoginModel? loginModel;
 
-  void verifyCode({required code, context}) {
-    DioServer.postData(
-      url: ApiConstance.verifyUrl,
-      data: {
-        "code": code,
-      },
-    ).then((value) {
-      loginModel = LoginModel.fromJson(value.data);
-      SharedPref.saveData(key: "token", value: loginModel!.token.toString()).then((value) {
-        tokenData = loginModel!.token.toString();
-        showToast(message: "Success", state: ToastState.Success);
-        navigateAndFinish(context: context, screen: const BottomScreen());
-      });
-    });
+  void verifyCode({required code, context}) async{
+    emit(LoginVerifyLoadingState());
+    try{
+      Response response = await DioServer.postData(
+        url: ApiConstance.verifyUrl,
+        data: {
+          "code": code,
+        },
+      );
+      loginModel = LoginModel.fromJson(response.data);
+      showToast(message: "Success", state: ToastState.Success);
+      emit(LoginVerifySuccessState(loginModel : loginModel!));
+    } on DioException catch(e){
+      if(e.response!.statusCode ==400 ){
+        showToast(message: e.response!.data['message'], state: ToastState.Error);
+      }
+      if(e.response!.statusCode ==429 ){
+        showToast(message: e.response!.data['message'], state: ToastState.Error);
+      }
+      if(e.response!.statusCode == 500 ){
+        showToast(message: e.response!.data['message'], state: ToastState.Error);
+      }
+      if(e.response!.statusCode == 429){
+        showToast(message: e.response!.data['message'], state: ToastState.Error);
+      }
+    }
   }
 
   void forgetEmailOne({required String email, context}) async {
-    print("hello 1");
+    print("hello 1 ");
     try {
       Response response = await DioServer.postData(
         url: ApiConstance.resetPasswordUrl,
@@ -82,7 +111,9 @@ class LoginCubit extends Cubit<LoginStates> {
     } on DioException catch (e) {
       if (e.response!.statusCode == 401) {
         showToast(
-            message: e.response!.data['message'], state: ToastState.Error);
+          message: e.response!.data['message'],
+          state: ToastState.Error,
+        );
       }
     }
   }

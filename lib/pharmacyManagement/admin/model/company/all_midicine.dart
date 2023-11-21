@@ -33,7 +33,7 @@ class AllMedicineCompanyModel {
      manufactorerName= json['manufactorer_name'];
      categoryOneProduct= CategoryOneProduct.fromJson(json['category']);
      typeOneProduct= TypeOneProduct.fromJson(json['type']);
-     companiesOneProduct= json['companies'].forEach((element){
+     json['companies'].forEach((element){
      companiesOneProduct.add(CompaniesOneProduct.fromJson(element));
      }) ;
   }

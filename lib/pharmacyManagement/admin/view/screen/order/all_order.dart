@@ -1,8 +1,17 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pharmacy_system/pharmacyManagement/admin/view_model/all_cubit/company/cubit.dart';
+import 'package:pharmacy_system/pharmacyManagement/admin/view_model/all_cubit/company/states.dart';
+import 'package:pharmacy_system/pharmacyManagement/admin/view_model/all_cubit/laboratory/cubit.dart';
 import 'package:pharmacy_system/utils/core/constance/color_constance.dart';
+import 'package:pharmacy_system/utils/fucntion/navigate.dart';
 import 'package:pharmacy_system/utils/widget/all_app/icon_button.dart';
 import 'package:pharmacy_system/utils/widget/all_app/text_normal.dart';
 import 'package:pharmacy_system/utils/widget/home/one_item_order.dart';
+
+import '../../../view_model/all_cubit/laboratory/states.dart';
+import 'details_one_item_order.dart';
 
 class AllOrder extends StatelessWidget {
   const AllOrder({Key? key}) : super(key: key);
@@ -54,7 +63,7 @@ class AllOrder extends StatelessWidget {
                       child: Align(
                         alignment: Alignment.center,
                         child: NormalText(
-                          text: "All Order",
+                          text: "Company",
                           colorText: Colors.black87,
                           sizeText: 16.0,
                           fontWeight: FontWeight.bold,
@@ -65,7 +74,7 @@ class AllOrder extends StatelessWidget {
                       child: Align(
                           alignment: Alignment.center,
                           child: NormalText(
-                            text: "Company",
+                            text: "Laboratory",
                             sizeText: 16.0,
                             fontWeight: FontWeight.bold,
                           )),
@@ -77,21 +86,81 @@ class AllOrder extends StatelessWidget {
             Expanded(
               child: TabBarView(
                 children: [
-                  ListView.separated(
-                    physics: const BouncingScrollPhysics(),
-                    itemBuilder: (context, index) => const OneItemOrder(),
-                    separatorBuilder: (context, index) => const Divider(
-                      thickness: 1.5,
-                    ),
-                    itemCount: 10,
-                  ),
-                  ListView.separated(
-                    physics: const BouncingScrollPhysics(),
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) => const OneItemOrder(),
-                    separatorBuilder: (context, index) => const Divider(),
-                    itemCount: 5,
-                  ),
+                  BlocConsumer<CompanyCubit, CompanyStates>(
+                      listener: (context, state) {},
+                      builder: (context, state) {
+                        return ConditionalBuilder(
+                          condition: CompanyCubit.get(context).list.isNotEmpty,
+                          builder: (context) {
+                            return ListView.separated(
+                              physics: const BouncingScrollPhysics(),
+                              itemBuilder: (context, index) => InkWell(
+                                onTap: () {
+                                  CompanyCubit.get(context).getPrivateOrderId(id:  CompanyCubit.get(context).list[index].id);
+                                  navigateTo(
+                                    context: context,
+                                    screen: DetailsOneItemOrder(
+                                      isCompany: true,
+                                      specificOrderModel: CompanyCubit.get(context).specificOrderModel,
+                                      ordersCompanyModel:
+                                          CompanyCubit.get(context).list[index],
+                                    ),
+                                  );
+                                },
+                                child: OneItemOrder(
+                                  isCompany: true,
+                                  ordersCompanyModel:
+                                      CompanyCubit.get(context).list[index],
+                                ),
+                              ),
+                              separatorBuilder: (context, index) =>
+                                  const Divider(
+                                thickness: 1.5,
+                              ),
+                              itemCount: CompanyCubit.get(context).list.length,
+                            );
+                          },
+                          fallback: (context) => const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        );
+                      }),
+                  BlocConsumer<LaboratoryCubit, LaboratoryStates>(
+                    listener: (context, state) {},
+                    builder: (context, state) {
+                      return ConditionalBuilder(
+                        condition: state is! AllOrdersLaboratoryLoadingState,
+                        builder: (context) => ListView.separated(
+                          physics: const BouncingScrollPhysics(),
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) => InkWell(
+                            onTap: () {
+                              LaboratoryCubit.get(context).getPrivateOrderLaboratory(id: index+1);
+
+                              if(state is PrivateOrdersLaboratorySuccessState){
+                                navigateTo(
+                                  context: context,
+                                  screen:  DetailsOneItemOrder(
+                                    isCompany: false,
+                                  ),);
+                              }
+                            },
+                            child: OneItemOrder(
+                                isCompany: false,
+                                laboratoryModel: LaboratoryCubit.get(context)
+                                    .allOrderLaboratory[index]),
+                          ),
+                          separatorBuilder: (context, index) => const Divider(),
+                          itemCount: LaboratoryCubit.get(context)
+                              .allOrderLaboratory
+                              .length,
+                        ),
+                        fallback: (context) => const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      );
+                    },
+                  )
                 ],
               ),
             ),

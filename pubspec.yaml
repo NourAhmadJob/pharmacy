@@ -36,6 +36,13 @@ dependencies:
   shimmer: ^2.0.0
   shimmer_animation: ^2.1.0+1
   lottie: ^2.3.2
+  introduction_screen:
+  syncfusion_flutter_charts: ^20.1.60
+  syncfusion_localizations:
+  percent_indicator: ^4.2.3
+  desktop_window:
+  expandable_widgets: ^1.0.3+1
+
 
 dev_dependencies:
   flutter_test:

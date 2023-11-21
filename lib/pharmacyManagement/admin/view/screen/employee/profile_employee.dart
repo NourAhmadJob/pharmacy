@@ -68,7 +68,7 @@ class ProfileEmployee extends StatelessWidget {
                             backgroundColor: Colors.white,
                             maxRadius: 70,
                             backgroundImage: AssetImage(
-                                "assets/images/open.png"),
+                                "assets/images/1.jpg"),
                           ),
                         )
                       ],

@@ -17,53 +17,56 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   TextEditingController searchController = TextEditingController();
 
-  List filter = [];
 
   @override
   Widget build(BuildContext context) {
+  List filter = [];
     return BlocConsumer<EmployeeCubit, EmployeeStates>(
-      listener: (context, state) {},
-      builder: (context, state) => Scaffold(
-        appBar: AppBar(
-          backgroundColor: AllColors.appColor,
-          elevation: 0.0,
-          actions: [
-            searchController.text != null
-                ? DefaultIconButton(
-                    iconData: Icons.close,
-                    onPressed: () {
-                      searchController.clear();
-                    },
-                  )
-                : Container(),
-          ],
-          title: DefaultTextField(
-            onChange: (String? value) {
-              setState(() {
-                filter = EmployeeCubit.get(context)
-                    .allEmployeeList
-                    .where((element) =>
-                        element.name.toLowerCase().contains(value!) || element.email.toLowerCase().contains(value))
-                    .toList();
-              });
-            },
-            controller: searchController,
-            type: TextInputType.text,
-            hint: "Search about Employee",
-          ),
-        ),
-        body:  filter.isEmpty
-            ? Center(
-                child: NormalText(text: "Not Result found"),
-              )
-            : ListView.separated(
-                itemBuilder: (context, index) => ResultSearch(allEmployeeModel: filter[index]),
-                separatorBuilder: (context, index) => const SizedBox(
-                  height: 20.0,
-                ),
-                itemCount: filter.length,
+        listener: (context, state) {},
+        builder: (context, state) {
+          var cubit = EmployeeCubit.get(context);
+          return Scaffold(
+            appBar: AppBar(
+              backgroundColor: AllColors.appColor,
+              elevation: 0.0,
+              actions: [
+                searchController.text != null
+                    ? DefaultIconButton(
+                        iconData: Icons.close,
+                        onPressed: () {
+                          searchController.clear();
+                        },
+                      )
+                    : Container(),
+              ],
+              title: DefaultTextField(
+                onChange: (String? value) {
+                  setState(() {
+                    filter = cubit
+                        .allEmployeeList
+                        .where((element) =>
+                        element.name.toLowerCase().contains(value!))
+                        .toList();
+                  });
+                },
+                controller: searchController,
+                type: TextInputType.text,
+                hint: "Search about Employee",
               ),
-      ),
-    );
+            ),
+            body: cubit.searchEmployeeModel.isEmpty
+                ? Center(
+                    child: NormalText(text: "Not Result found"),
+                  )
+                : ListView.separated(
+                    itemBuilder: (context, index) =>
+                        ResultSearch(employeeModel: filter[index],),
+                    separatorBuilder: (context, index) => const SizedBox(
+                      height: 0.0,
+                    ),
+                    itemCount: filter.length,
+                  ),
+          );
+        });
   }
 }

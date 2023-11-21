@@ -24,3 +24,17 @@ class OrderAddLoadingState extends LaboratoryStates {}
 
 class OrderAddSuccessState extends LaboratoryStates {}
 
+
+
+class AllOrdersLaboratoryLoadingState extends LaboratoryStates {}
+
+class AllOrdersLaboratorySuccessState extends LaboratoryStates {}
+
+
+class PrivateOrdersLaboratoryLoadingState extends LaboratoryStates {}
+
+class PrivateOrdersLaboratorySuccessState extends LaboratoryStates {}
+
+
+
+

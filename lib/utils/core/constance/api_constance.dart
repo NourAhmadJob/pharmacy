@@ -1,6 +1,6 @@
 class ApiConstance {
 
- static  String baseUrl = "http://192.168.202.254:7000/api";
+ static  String baseUrl = "http://192.168.92.254:7000/api";
  // ____________________________________ Auth
  static  String loginUrl = '$baseUrl/auth/login';
  static  String verifyUrl = '$baseUrl/auth/verify-login';
@@ -23,7 +23,11 @@ class ApiConstance {
 
   static String searchCompany = "$baseUrl/company/advanced-search";
 
+  static String allOrderCompany = "$baseUrl/company/order/display-all";
 
+  static String privateOrderByIdCompany = "$baseUrl/company/order/product-order/display-order";
+
+  static String searchProduct ="$baseUrl/company/products/advanced-search";
  // _____________________________________ Employee
 
  static String allEemployee = "$baseUrl/employee/display-all";
@@ -49,6 +53,11 @@ class ApiConstance {
  static String orderReject = "$baseUrl/laboratory/order/reject-order";
 
  static String orderAccept = "$baseUrl/laboratory/order/accept-order";
+
  static String orderDelete = "$baseUrl/laboratory/order/delete-order";
+
+ static String allOrder = "$baseUrl/laboratory/order/display-all";
+
+ static String privateOrder = "$baseUrl/laboratory/order/display-order";
 
 }

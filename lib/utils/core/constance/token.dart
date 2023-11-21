@@ -1,2 +1,2 @@
-String tokenData = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJuQGdtYWlsLmNvbSIsInN0YXR1Ijoib25saW5lIiwiZGF0ZSI6MTY5MTQyMDk2MCwicm9sZSI6MSwiaWF0IjoxNjkxNDIwOTYwLCJleHAiOjE2OTE0MjQ1NjB9.gzeysJQAEPV0QNClkiHLgqVqHC6spbcP3tEXcHowzQY";
+String tokenData = "";
 String tokenDataBearer = "Bearer $tokenData";

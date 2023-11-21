@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_system/pharmacyManagement/admin/view/screen/laboratory/add_laboratory.dart';
+import 'package:pharmacy_system/pharmacyManagement/admin/view_model/all_cubit/laboratory/cubit.dart';
 import 'package:pharmacy_system/utils/core/constance/color_constance.dart';
 import 'package:pharmacy_system/utils/fucntion/navigate.dart';
 import 'package:pharmacy_system/utils/widget/all_app/text_normal.dart';
@@ -44,7 +45,7 @@ class MyLaboratory extends StatelessWidget {
         separatorBuilder: (context, index) => const Divider(
           thickness: 1.4,
         ),
-        itemCount: 10,
+        itemCount: 1,
       ),
     );
   }

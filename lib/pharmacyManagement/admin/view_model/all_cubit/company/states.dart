@@ -1,5 +1,7 @@
 import 'package:pharmacy_system/pharmacyManagement/admin/model/company/profile_company.dart';
 
+import '../../../model/company/all_midicine.dart';
+
 abstract class CompanyStates {}
 
 class CompanyInitialState extends CompanyStates {}
@@ -47,10 +49,38 @@ class CompanyDeleteErrorState extends CompanyStates {
 
 class CompanyUpdateLoadingState extends CompanyStates {}
 
-class CompanyUpdateSuccessState extends CompanyStates {}
+class CompanyUpdateSuccessState extends CompanyStates {
+  final AllMedicineCompanyModel allMedicineCompanyModel;
+
+
+  CompanyUpdateSuccessState({required this.allMedicineCompanyModel} );}
 
 class CompanyUpdateErrorState extends CompanyStates {
   final String error;
 
   CompanyUpdateErrorState({required this.error});
 }
+
+// ________________________________________________________ allOrdersCompany
+
+
+class AllOrdersCompanyLoadingState extends CompanyStates {}
+
+class AllOrdersCompanySuccessState extends CompanyStates {}
+
+
+class AllProductLoadingState extends CompanyStates {}
+
+class AllProductSuccessState extends CompanyStates {}
+
+class SearchCompanyLoadingState extends CompanyStates {}
+
+class SearchCompanySuccessState extends CompanyStates {}
+
+class SearchGrudsCompanyLoadingState extends CompanyStates {}
+
+class SearchGrudsCompanySuccessState extends CompanyStates {}
+
+class GetPrivateOrderLoadingState extends CompanyStates {}
+
+class GetPrivateOrderSuccessState extends CompanyStates {}

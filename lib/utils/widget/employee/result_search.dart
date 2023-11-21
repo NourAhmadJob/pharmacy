@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_system/pharmacyManagement/admin/model/employee/all_employee.dart';
+import 'package:pharmacy_system/pharmacyManagement/admin/model/search/search_employee_model.dart';
+import 'package:pharmacy_system/pharmacyManagement/admin/view/screen/employee/profile_employee.dart';
 import 'package:pharmacy_system/utils/core/constance/color_constance.dart';
 import 'package:pharmacy_system/utils/widget/all_app/basic_bottom.dart';
 import 'package:pharmacy_system/utils/widget/all_app/text_normal.dart';
 
 class ResultSearch extends StatelessWidget {
-  final AllEmployeeModel allEmployeeModel;
+  final AllEmployeeModel employeeModel;
+  const ResultSearch({super.key, required this.employeeModel});
 
-  const ResultSearch({super.key, required this.allEmployeeModel});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,7 @@ class ResultSearch extends StatelessWidget {
         child: Column(children: [
           Container(
             width: 360.0,
-            height: 250.0,
+            height: 300.0,
             decoration: BoxDecoration(
               color: Colors.grey.shade200,
               borderRadius: BorderRadius.circular(10.0),
@@ -30,14 +32,14 @@ class ResultSearch extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 25),
                   child: Row(
                     children: [
-                      const Padding(
+                       const Padding(
                         padding: EdgeInsets.only(
                           left: 20,
                         ),
                         child: CircleAvatar(
                           maxRadius: 35,
-                          // backgroundImage:
-                          // AssetImage(upcoming[index]),
+                          backgroundImage:
+                          AssetImage("assets/images/1.jpg"),
                         ),
                       ),
                       Column(
@@ -47,7 +49,7 @@ class ResultSearch extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(left: 10, bottom: 5),
                             child: NormalText(
-                              text: allEmployeeModel.name,
+                              text: employeeModel.name.toString(),
                               sizeText: 22.0,
                               fontWeight: FontWeight.bold,
                               colorText: AllColors.appColor,
@@ -58,19 +60,22 @@ class ResultSearch extends StatelessWidget {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(left: 10),
-                            child: NormalText(text: allEmployeeModel.email),
+                            child: NormalText(text: employeeModel.email.toString() ,colorText: Colors.grey,),
                           ),
+                          const SizedBox(height: 5.0,),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: NormalText(text: employeeModel.address.toString(), colorText: Colors.grey,),
+                          ),
+                          const SizedBox(height: 5.0,),
                           Padding(
                             padding: const EdgeInsets.only(left: 5, top: 7),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Icon(
-                                  Icons.star,
-                                  color: Color(0xff36C8FF),
-                                  size: 20,
-                                ),
-                                NormalText(text: "4.8")
+                                NormalText(text: "score"),
+                                const SizedBox(width: 20.0,),
+                                NormalText(text: employeeModel.id.toString() ,colorText: Colors.grey,)
                               ],
                             ),
                           ),
@@ -90,37 +95,31 @@ class ResultSearch extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     NormalText(
-                      text: "28  Years ",
+                      text: employeeModel.id.toString(),
                       colorText: Colors.grey,
-                      sizeText: 13.0,
+                      sizeText: 16.0,
                       fontWeight: FontWeight.w500,
                     ),
+
                     const SizedBox(
-                      width: 5,
-                    ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    const Icon(Icons.access_time, color: Colors.grey, size: 20),
-                    const SizedBox(
-                      width: 5,
+                      width: 25,
                     ),
                     NormalText(
-                      text: "10:30 Am",
-                      sizeText: 12,
+                      text:employeeModel.gender.toString() ,
+                      sizeText: 16,
                       colorText: Colors.grey,
                       fontWeight: FontWeight.w500,
                     ),
                     const SizedBox(
-                      width: 15,
+                      width: 25,
                     ),
                     const Icon(Icons.circle, color: Colors.green, size: 20),
                     const SizedBox(
                       width: 5,
                     ),
                     NormalText(
-                      text: "Confirmed",
-                      sizeText: 12.0,
+                      text: employeeModel.statu.toString(),
+                      sizeText: 16.0,
                       colorText: Colors.grey,
                       fontWeight: FontWeight.w500,
                     ),

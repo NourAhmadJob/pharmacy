@@ -37,9 +37,9 @@ class _SearchScreen2State extends State<SearchScreen2> {
             onChanged: (String? value) {
               setState(() {
                 filter = HomeCubit.get(context)
-                    .allgrud
+                    .allGruds
                     .where((element) =>
-                        element.name.toLowerCase().contains(value!))
+                        element.name!.toLowerCase().contains(value!))
                     .toList();
               });
             },

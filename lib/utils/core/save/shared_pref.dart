@@ -10,22 +10,22 @@ class SharedPref {
 
   static Future<bool> saveData({
     required String key ,
-    required dynamic value ,
+    required String value ,
 }) async
   {
 
       // ignore: unnecessary_type_check
-      if(key is String )  return await sharedPreferences.setString(key, value) ;
-      if(key is int )  return await sharedPreferences.setInt(key ,value) ;
-      if(key is bool )  return await sharedPreferences.setBool(key, value) ;
-
-      return await sharedPreferences.setDouble(key, value) ;
+     return await sharedPreferences.setString(key, value) ;
+      // if(key is int )  return await sharedPreferences.setInt(key ,value) ;
+      // if(key is bool )  return await sharedPreferences.setBool(key, value) ;
+      //
+      // return await sharedPreferences.setDouble(key, value) ;
   }
 
- static dynamic getData({
+ static String? getData({
     required String key,
 }){
-    sharedPreferences.get(key);
+   return  sharedPreferences.getString(key);
   }
 
   static Future<bool> clearData({

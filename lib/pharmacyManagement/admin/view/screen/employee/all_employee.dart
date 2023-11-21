@@ -28,11 +28,6 @@ class _AllEmployeeState extends State<AllEmployee> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: scrollUp,
-        backgroundColor: AllColors.appColor,
-        child:  const Icon(Icons.arrow_upward),
-      ),
       appBar: AppBar(
         backgroundColor: AllColors.appColor,
         title: NormalText(
@@ -40,6 +35,7 @@ class _AllEmployeeState extends State<AllEmployee> {
           colorText: Colors.white,
           sizeText: 20.0,
         ),
+        centerTitle: true,
         actions: [
           DefaultIconButton(
             iconData: Icons.add,
@@ -63,6 +59,11 @@ class _AllEmployeeState extends State<AllEmployee> {
           const SizedBox(width: 5.0,),
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: scrollUp,
+        backgroundColor: AllColors.appColor,
+        child:  const Icon(Icons.arrow_upward),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -71,9 +72,9 @@ class _AllEmployeeState extends State<AllEmployee> {
           children: [
             BlocConsumer<EmployeeCubit, EmployeeStates>(
                listener: (context , state){
-                 if(state is AddEmployeeSuccessState){
-                   EmployeeCubit.get(context).getAllEmployee();
-                 }
+                 // if(state is AddEmployeeSuccessState){
+                 //   EmployeeCubit.get(context).getAllEmployee();
+                 // }
                },
               builder: (context, state) => ConditionalBuilder(
                 condition:
@@ -100,8 +101,7 @@ class _AllEmployeeState extends State<AllEmployee> {
                     separatorBuilder: (context, index) => const SizedBox(
                       height: 15.0,
                     ),
-                    itemCount:
-                        EmployeeCubit.get(context).allEmployeeList.length,
+                    itemCount: state is AddEmployeeSuccessState?  EmployeeCubit.get(context).itemCount : EmployeeCubit.get(context).itemCount,
                   ),
                 ),
                 fallback: (context) => const Center(

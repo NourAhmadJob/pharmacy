@@ -6,6 +6,7 @@ class DioServer {
 
   static Future<Response> getData({
     required String url,
+    Map<String,dynamic>?data,
     String? token,
   }) async {
     dio.options.headers = {
@@ -13,7 +14,7 @@ class DioServer {
       "Content-Type": "application/json",
       "Authorization": token,
     };
-    return await dio.get(url);
+    return await dio.get(url , data:data);
   }
 
   static Future<Response> postData({

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-void loadingCenter({
+ loadingCenter({
   required context ,
 }) => showDialog(
       context: context,

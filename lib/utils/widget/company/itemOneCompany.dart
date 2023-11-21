@@ -12,19 +12,21 @@ class Item extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Card(
-        color: Colors.grey.shade300,
+        color: const Color(0xffE4F9F5),
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Row(
             children: [
               Container(
                 width: 120.0,
-                height: 120.0,
+                height: 140.0,
                 decoration: BoxDecoration(
-                  color: Colors.red,
+                  color: const Color(0xffE4F9F5),
                   borderRadius: BorderRadius.circular(10.0),
+                  border: Border.all(width: 0.4),
                   image: const DecorationImage(
-                    image: AssetImage("assets/images/open.png"),
+                    opacity: 0.5,
+                    image: AssetImage("assets/images/m6.jpg",),
                     fit: BoxFit.cover,
                   ),
                 ),

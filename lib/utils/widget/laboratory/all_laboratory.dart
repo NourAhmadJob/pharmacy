@@ -9,122 +9,125 @@ import '../all_app/text_botton.dart';
 import '../all_app/text_normal.dart';
 
 class AllLaboratoryWidget extends StatelessWidget {
-  const AllLaboratoryWidget({Key? key}) : super(key: key);
+  const AllLaboratoryWidget({Key? key , }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LaboratoryCubit , LaboratoryStates>(
       listener: (context,state){},
-      builder:(context,state) =>  Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
-          children: [
-            Card(
-              child: Container(
-                padding: const EdgeInsets.all(12.0),
-                height: 150,
-                width: double.infinity,
-                child: Row(
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        NormalText(
-                          text: LaboratoryCubit.get(context).model!.name,
-                          sizeText: 22,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        const SizedBox(
-                          height: 10.0,
-                        ),
-                        NormalText(
-                          text:  LaboratoryCubit.get(context).model!.email,
-                          sizeText: 16,
-                          fontWeight: FontWeight.bold,
-                          colorText: Colors.grey,
-                        ),
-                        const SizedBox(
-                          height: 10.0,
-                        ),
-                        NormalText(
-                          text:  LaboratoryCubit.get(context).model!.phone,
-                          sizeText: 14,
-                          fontWeight: FontWeight.bold,
-                          colorText: Colors.grey,
-                        ),
-                        const SizedBox(
-                          height: 10.0,
-                        ),
-                        NormalText(
-                          text: "20 products",
-                          sizeText: 14,
-                          fontWeight: FontWeight.bold,
-                          colorText: Colors.grey,
-                        ),
-                      ],
-                    ),
-                    const Spacer(),
-                    Column(
-                      children: [
-                        DefaultIconButton(
-                          iconData: Icons.edit,
-                          onPressed: () {
-                            navigateTo(
-                              context: context,
-                              screen: EditLaboratory(
-                                id: LaboratoryCubit.get(context).model!.id,
-                                name: LaboratoryCubit.get(context).model!.name,
-                                email: LaboratoryCubit.get(context).model!.email,
-                                phone: LaboratoryCubit.get(context).model!.phone,
-                              ),
-                            );
-                          },
-                          iconColor: Colors.grey,
-                        ),
-                        const SizedBox(
-                          height: 15.0,
-                        ),
-                        DefaultIconButton(
-                          iconData: Icons.delete,
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                actions: [
-                                  DefaultTextButton(
-                                    text: "No",
-                                    onPressed: () {
-                                      navigateBack(context: context);
-                                    },
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                  DefaultTextButton(
-                                    text: "Yes",
-                                    onPressed: () {
-                                      // access to delete laboratory
-                                    },
-                                    color: Colors.red,
-                                    fontWeight: FontWeight.w700,
-                                  )
-                                ],
-                                title: NormalText(
-                                  text: "Are you sure to delete the laboratory ?",
-                                  fontWeight: FontWeight.w800,
-                                  sizeText: 20.0,
+      builder:(context,state) {
+        var cubit = LaboratoryCubit.get(context);
+        return Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Column(
+            children: [
+              Card(
+                child: Container(
+                  padding: const EdgeInsets.all(12.0),
+                  height: 150,
+                  width: double.infinity,
+                  child: Row(
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          NormalText(
+                            text:cubit.model!.name.toString(),
+                            sizeText: 22,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          const SizedBox(
+                            height: 10.0,
+                          ),
+                          NormalText(
+                            text: cubit.model!.email.toString(),
+                            sizeText: 16,
+                            fontWeight: FontWeight.bold,
+                            colorText: Colors.grey,
+                          ),
+                          const SizedBox(
+                            height: 10.0,
+                          ),
+                          NormalText(
+                            text: cubit.model!.phone,
+                            sizeText: 14,
+                            fontWeight: FontWeight.bold,
+                            colorText: Colors.grey,
+                          ),
+                          const SizedBox(
+                            height: 10.0,
+                          ),
+                          NormalText(
+                            text: "20 products",
+                            sizeText: 14,
+                            fontWeight: FontWeight.bold,
+                            colorText: Colors.grey,
+                          ),
+                        ],
+                      ),
+                      const Spacer(),
+                      Column(
+                        children: [
+                          DefaultIconButton(
+                            iconData: Icons.edit,
+                            onPressed: () {
+                              navigateTo(
+                                context: context,
+                                screen: EditLaboratory(
+                                  id: 1,
+                                  name: "name",
+                                  email: "email",
+                                  phone: "095485255",
                                 ),
-                              ),
-                            );
-                          },
-                          iconColor: Colors.red,
-                        ),
-                      ],
-                    ),
-                  ],
+                              );
+                            },
+                            iconColor: Colors.grey,
+                          ),
+                          const SizedBox(
+                            height: 15.0,
+                          ),
+                          DefaultIconButton(
+                            iconData: Icons.delete,
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  actions: [
+                                    DefaultTextButton(
+                                      text: "No",
+                                      onPressed: () {
+                                        navigateBack(context: context);
+                                      },
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                    DefaultTextButton(
+                                      text: "Yes",
+                                      onPressed: () {
+                                        // access to delete laboratory
+                                      },
+                                      color: Colors.red,
+                                      fontWeight: FontWeight.w700,
+                                    )
+                                  ],
+                                  title: NormalText(
+                                    text: "Are you sure to delete the laboratory ?",
+                                    fontWeight: FontWeight.w800,
+                                    sizeText: 20.0,
+                                  ),
+                                ),
+                              );
+                            },
+                            iconColor: Colors.red,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
-      ),
+            ],
+          ),
+        );
+      }
     );
   }
 }

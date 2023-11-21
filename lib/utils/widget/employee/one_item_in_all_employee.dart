@@ -30,15 +30,20 @@ class OneItemEmployee extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                const SizedBox(width: 20.0,),
                 Container(
-                  width: 180,
-                  height: 209.95,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage("assets/images/open.png"),
+                  width: 120,
+                  height: 180.95,
+                  decoration: BoxDecoration(
+                    borderRadius:BorderRadius.circular(12.0) ,
+                  color: Colors.transparent,
+                    image: const DecorationImage(
+                      image: AssetImage("assets/images/1.jpg"),
+                      fit: BoxFit.cover,
                     ),
                   ),
                 ),
+                const SizedBox(width: 20.0,),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,7 +78,7 @@ class OneItemEmployee extends StatelessWidget {
                         text: state is EmployeeUpdateSuccessState &&
                                 employeeModel.id ==
                                     state.model.updateEmployeeModel.id
-                            ? state.model.updateEmployeeModel.gender
+                            ?  state.model.updateEmployeeModel.gender
                             : employeeModel.gender,
                       ),
                       const SizedBox(

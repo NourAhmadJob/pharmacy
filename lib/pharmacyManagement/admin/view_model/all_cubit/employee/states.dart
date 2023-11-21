@@ -46,3 +46,6 @@ class AddEmployeeLoadingState extends EmployeeStates {}
 
 class AddEmployeeSuccessState extends EmployeeStates{}
 
+class SearchEmployeeLoadingState extends EmployeeStates {}
+
+class SearchEmployeeSuccessState extends EmployeeStates {}

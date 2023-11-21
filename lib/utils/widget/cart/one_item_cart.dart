@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:pharmacy_system/pharmacyManagement/admin/model/company/order_specific_company_model.dart';
 import 'package:pharmacy_system/utils/core/constance/color_constance.dart';
 import 'package:pharmacy_system/utils/widget/all_app/text_normal.dart';
 
-class OneItemCart extends StatelessWidget {
-  const OneItemCart({Key? key}) : super(key: key);
+import '../../../pharmacyManagement/admin/model/company/all_orders_model.dart';
 
+class OneItemPrivateDetailsOrder extends StatelessWidget {
+  const OneItemPrivateDetailsOrder({Key? key , required this.specificOrderModel, required this.index }) : super(key: key);
+  final SpecificOrderModel specificOrderModel;
+  final int index;
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(8.0),
-      height: 130,
+      height: 152,
       color: Colors.white,
       child: Row(
         children: [
@@ -18,7 +22,7 @@ class OneItemCart extends StatelessWidget {
             height: 80,
           ),
           const SizedBox(
-            width: 5.0,
+            width: 12.0,
           ),
           Expanded(
             child: Column(
@@ -28,88 +32,46 @@ class OneItemCart extends StatelessWidget {
                   height: 6.0,
                 ),
                 NormalText(
-                  text: "Vitamin Vitamin Vitamin Vitamin Vitamin",
+                  text: specificOrderModel.companyOrderModel!.name.toString(),
                   fontWeight: FontWeight.bold,
                 ),
-                const SizedBox(
-                  height: 8.0,
-                ),
+                const SizedBox(height: 10,),
                 NormalText(
-                  text: "Name Company Name Company ",
+                  text: "Price  ${specificOrderModel.model[index].price}",
                   fontWeight: FontWeight.w600,
                   colorText: Colors.grey,
+                  sizeText: 14,
                 ),
-                const Spacer(),
-                Row(
-                  children: [
-                    NormalText(
-                      text: "94525LBLWC Id Product",
-                      sizeText: 12,
-                    ),
-                    const SizedBox(
-                      width: 12.1,
-                    ),
-                    Expanded(
-                      child: Wrap(
-                        crossAxisAlignment: WrapCrossAlignment.center,
-                        children: [
-                          Container(
-                            width: 40,
-                            height: 40,
-                            padding: const EdgeInsets.only(bottom: 8.0 , right: 3.0),
-                            decoration: const BoxDecoration(
-                              color: AllColors.appColor,
-                              shape: BoxShape.circle,
-                            ),
-                            child: const Center(
-                              child: Icon(
-                                Icons.minimize,
-                                size: 25.0,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 12.0,
-                          ),
-                          Container(
-                            alignment: Alignment.center,
-                            width: 40,
-                            height: 40,
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                              shape: BoxShape.circle,
-                            ),
-                            child: NormalText(
-                              text: "110",
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 12.0,
-                          ),
-                          Container(
-                            width: 40,
-                            height: 40,
-                            decoration: const BoxDecoration(
-                              color: AllColors.appColor,
-                              shape: BoxShape.circle,
-                            ),
-                            child: const Icon(Icons.add, color: Colors.white,),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
+                const SizedBox(height: 10.0,),
+                NormalText(
+                  text: "quantity   ${specificOrderModel.model[index].buyOrderItemModel.quantity*specificOrderModel.model[index].price} ",
+                  fontWeight: FontWeight.w500,
+                  colorText: Colors.grey,
+                  sizeText: 14,
                 ),
-                const SizedBox(
-                  height: 10.0,
+                const SizedBox(height: 10.0,),
+                NormalText(
+                  text: "total price ${specificOrderModel.model[index].buyOrderItemModel.quantity}",
+                  fontWeight: FontWeight.w500,
+                  colorText: Colors.grey,
+                  sizeText: 14,
+                ),
+                const SizedBox(height: 10,),
+                NormalText(
+                  text: "${specificOrderModel.model[index].productOrderCompanyModel.barcode}" "  Barcode Product",
+                  sizeText: 12,
+                ),
+                const SizedBox(height: 10,),
+                NormalText(
+                  text: "Expiration Date " "${specificOrderModel.createIt}",
+                  sizeText: 12,
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
   }
 }
+

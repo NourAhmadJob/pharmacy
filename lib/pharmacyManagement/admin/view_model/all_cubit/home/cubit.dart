@@ -4,17 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharmacy_system/pharmacyManagement/admin/model/company/all_midicine.dart';
 import 'package:pharmacy_system/pharmacyManagement/admin/model/grud/all_grud.dart';
-import 'package:pharmacy_system/pharmacyManagement/admin/view/screen/business/business.dart';
-import 'package:pharmacy_system/pharmacyManagement/admin/view/screen/home/home_screen.dart';
 import 'package:pharmacy_system/pharmacyManagement/admin/view/screen/order/all_order.dart';
 import 'package:pharmacy_system/pharmacyManagement/admin/view/screen/profile/profile_bottom_bar.dart';
 import 'package:pharmacy_system/pharmacyManagement/admin/view_model/all_cubit/home/states.dart';
 import 'package:pharmacy_system/utils/core/constance/api_constance.dart';
+import 'package:pharmacy_system/utils/core/constance/token.dart';
 import 'package:pharmacy_system/utils/core/server/dio_server.dart';
 
-class HomeCubit extends Cubit<HomeStates> {
+import '../../../view/screen/business/DashBoard.dart';
+import '../../../view/screen/home/home2.dart';
 
-  HomeCubit() : super (HomeInitialState());
+class HomeCubit extends Cubit<HomeStates> {
+  HomeCubit() : super(HomeInitialState());
 
   List<String> title = [
     "Home",
@@ -23,54 +24,64 @@ class HomeCubit extends Cubit<HomeStates> {
     "Profile",
   ];
 
-   List<Widget> screen = [
-     const HomeScreen(),
-     const AllOrder(),
-     const BusinessScreen(),
-     const ProfilBottomBar(),
-   ];
+  List<Widget> screen = [
+     Dashpoard(),
+    const HomeUp(),
+    const AllOrder(),
+    const ProfilBottomBar(),
+  ];
+
   static HomeCubit get(context) => BlocProvider.of(context);
-   int currentIndex = 0;
+  int currentIndex = 0;
+
   void changeIndexBottom(int index) {
-    currentIndex = index ;
+    currentIndex = index;
     emit(BottomNavBarHomeState());
   }
 
-  List <BottomNavigationBarItem> bottomItem = [
-    const BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home",),
-    const BottomNavigationBarItem(icon: Icon(Icons.list ), label: "Order",),
-    const BottomNavigationBarItem(icon: Icon(Icons.business), label: "Business",),
-    const BottomNavigationBarItem(icon: Icon(Icons.person),label: 'Profile'),
+  List<BottomNavigationBarItem> bottomItem = [
+    const BottomNavigationBarItem(
+      icon: Icon(Icons.business),
+      label: "Dashboard",
+    ),
+    const BottomNavigationBarItem(
+      icon: Icon(Icons.home),
+      label: "Home",
+    ),
+    const BottomNavigationBarItem(
+      icon: Icon(Icons.list),
+      label: "Orders",
+    ),
+    const BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
   ];
 
-
-  List<AllGrud> allgrud = [
-    AllGrud(name: "Setamol", email: "noorahmad@gmail.com", id: 10 , ),
-    AllGrud(name: "Vitamin D", email: "noorahmad@gmail.com", id: 10 , ),
-    AllGrud(name: "Aspirin", email: "noorahmad@gmail.com", id: 10 , ),
-    AllGrud(name: "Milk", email: "noorahmad@gmail.com", id: 10 , ),
-    AllGrud(name: "Corona", email: "noorahmad@gmail.com", id: 10 , ),
-  ];
-
-
-  void listSearch(filter , String?value , context ,List old )
-  {
-    filter = old.where((element) => element.name.toLowerCase().contains(value)).toList();
+  void listSearch(filter, String? value, context, List old) {
+    filter = old
+        .where((element) => element.name.toLowerCase().contains(value))
+        .toList();
     emit(SearchHomeSuccess());
   }
-   List<AllMedicineCompanyModel> allGruds = [];
-  void getAllGrudsHome()async{
-   try {
-     allGruds = [];
-      final Response response =
-          await DioServer.getData(url: ApiConstance.allGruds);
-      response.data['products'].forEach((element){
-        allGruds.add(AllMedicineCompanyModel.fromJson(element));
-      });
-    }on DioException catch(e){
-     if(e.response!.statusCode == 400){}
-     else if(e.response!.statusCode == 401){}
-   }
-  }
 
+  List<AllMedicineCompanyModel> allGruds = [];
+
+  void getAllGrudsHome() async {
+    emit(AllGurdsLoadingState());
+    print("hello 1");
+    allGruds = [];
+    DioServer.getData(url: ApiConstance.allGruds, token: tokenData)
+        .then(
+          (value) {
+            print(value.data);
+            value.data['products'].forEach((element){
+              allGruds.add( AllMedicineCompanyModel.fromJson(element)) ;
+            });
+            print(allGruds[0].name);
+          },
+        )
+        .catchError(
+          (error) {
+            print(error.toString());
+          },
+        );
+  }
 }
