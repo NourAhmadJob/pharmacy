@@ -25,6 +25,7 @@ class DetailsGruds extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Container(),
             ClipRRect(
               child: Container(
                 alignment: Alignment.center,
